@@ -1,0 +1,22 @@
+:root {
+    --theme-color: #61D3A0;
+    --theme-color-dark: #51B596; /* Optional: For hover or dark theme */
+  }
+  
+  /* Example for using the theme color in buttons */
+  .btn-primary {
+    background-color: var(--theme-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--theme-color-dark);
+  }
+  
+  /* Example for form control borders */
+  .form-control {
+    border-color: var(--theme-color);
+  }
+  
+  /* Add more global styles as needed */
+  
