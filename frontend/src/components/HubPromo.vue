@@ -30,7 +30,7 @@ import cart from '../assets/Icons/cart.svg'
 const incentives = [
     {
         name: 'Products as per your needs',
-        description: "An one stop marketplace for 1000s of products. Just let us know your needs and get your products delivered.",
+        description: "One stop marketplace for 1000s of products. Just let us know your needs and get your products delivered.",
         imageSrc: delivery,
     },
     {
@@ -40,7 +40,7 @@ const incentives = [
     },
     {
         name: 'Get your products',
-        description: "Get multiple quotes from sellers, seal your deal and vola!. Get your products delivered at your doorsteps.",
+        description: "Get quotes from multiple sellers, seal your deal and vola!. Get your products delivered at your doorsteps.",
         imageSrc: cart,
     },
 ]

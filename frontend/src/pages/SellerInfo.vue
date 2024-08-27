@@ -1,6 +1,6 @@
 <template>
     <NavBar />
-    <div class="mx-auto max-w-7xl overflow-hidden px-4 py-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl overflow-hidden px-4 pt-10 sm:px-6 lg:px-8">
         <div class="flex items-center space-x-6">
             <!-- Seller Logo -->
             <div class="border border-gray-300 rounded-full w-20 h-20 bg-white">
