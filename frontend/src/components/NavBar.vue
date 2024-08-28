@@ -84,7 +84,7 @@
 
                         <!-- Logo -->
                         <div class="ml-4 flex lg:ml-0">
-                            <a href="/hub-marketplace">
+                            <a href="/hub_marketplace/">
                                 <span class="sr-only">Hub-Marketplace</span>
                                 <img class="h-8 w-auto" src="https://mytra.money/files/final_logo_bg_black_1.png"
                                     alt="mytra" />

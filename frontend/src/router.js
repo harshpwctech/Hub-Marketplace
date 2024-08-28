@@ -7,7 +7,7 @@ const routes = [
     component: () => import('@/pages/Home.vue'),
   },
   {
-    path: '/product-list/:categoryName',
+    path: '/product_list/:categoryName',
     name: 'ProductList',
     component: () => import('@/pages/ProductList.vue'),
     props: true
@@ -27,7 +27,7 @@ const routes = [
 ]
 
 let router = createRouter({
-  history: createWebHistory('/hub-marketplace'),
+  history: createWebHistory('/hub_marketplace'),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
