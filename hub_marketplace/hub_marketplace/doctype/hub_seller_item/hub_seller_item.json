@@ -23,6 +23,13 @@
   "food_type",
   "column_break_uens",
   "country_of_origin",
+  "section_break_ldhtf",
+  "maximum_price",
+  "offered_price",
+  "discount",
+  "column_break_ysw1d",
+  "maximum_quantity",
+  "available_quantity",
   "fulfilment_settings_section",
   "returnable",
   "pickup_on_return",
@@ -32,31 +39,16 @@
   "cancel_within",
   "column_break_16",
   "available_on_cod",
-  "warehouse_details_section",
-  "mapped_warehouse",
   "item_specifications_tab",
   "image",
   "back_image",
   "additional_images",
+  "column_break_oft2w",
   "short_description",
   "long_description",
   "column_break_20",
   "specifications",
-  "additional_specifications",
-  "copy_from_ondc_item_attributes",
-  "variant_details_section",
-  "variant_of",
-  "enable_variants",
-  "column_break_owwvp",
-  "item_variants",
-  "dimensions_section",
-  "length",
-  "width",
-  "height",
-  "weight",
-  "column_break_78ysx",
-  "ondc_uom",
-  "uom_value"
+  "additional_specifications"
  ],
  "fields": [
   {
@@ -92,7 +84,6 @@
   {
    "fieldname": "sub_category",
    "fieldtype": "Autocomplete",
-   "hidden": 1,
    "label": "Sub Category"
   },
   {
@@ -156,18 +147,6 @@
    "label": "Available on COD"
   },
   {
-   "fieldname": "warehouse_details_section",
-   "fieldtype": "Section Break",
-   "label": "Warehouse Details"
-  },
-  {
-   "fieldname": "mapped_warehouse",
-   "fieldtype": "Table MultiSelect",
-   "label": "Mapped Warehouse",
-   "options": "ONDC Seller Warehouse Details",
-   "reqd": 1
-  },
-  {
    "fieldname": "item_specifications_tab",
    "fieldtype": "Tab Break",
    "label": "Item Specifications"
@@ -200,100 +179,14 @@
   {
    "fieldname": "specifications",
    "fieldtype": "Table",
-   "label": "Specifications",
-   "options": "ONDC Item Specifications"
+   "label": "Statutory Specifications",
+   "options": "Hub Seller Item Attribute"
   },
   {
    "fieldname": "additional_specifications",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Additional Specifications",
-   "options": "ONDC Item Specifications"
-  },
-  {
-   "fieldname": "copy_from_ondc_item_attributes",
-   "fieldtype": "Button",
-   "label": "Copy From ONDC Item Attributes"
-  },
-  {
-   "depends_on": "eval: doc.variant_of",
-   "fieldname": "variant_details_section",
-   "fieldtype": "Section Break",
-   "label": "Variant Details"
-  },
-  {
-   "fetch_from": "item_code.variant_of",
-   "fieldname": "variant_of",
-   "fieldtype": "Link",
-   "label": "Variant Of",
-   "options": "Item",
-   "read_only": 1
-  },
-  {
-   "default": "1",
-   "fieldname": "enable_variants",
-   "fieldtype": "Check",
-   "label": "Enable Variants"
-  },
-  {
-   "fieldname": "column_break_owwvp",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "item_variants",
-   "fieldtype": "Table",
-   "hidden": 1,
-   "label": "Item Variants",
-   "options": "ONDC Item Variant"
-  },
-  {
-   "fieldname": "dimensions_section",
-   "fieldtype": "Section Break",
-   "label": "Dimensions"
-  },
-  {
-   "description": "In centimeters",
-   "fieldname": "length",
-   "fieldtype": "Float",
-   "label": "Length (in CMs)",
-   "reqd": 1
-  },
-  {
-   "description": "In centimeters",
-   "fieldname": "width",
-   "fieldtype": "Float",
-   "label": "Width (in CMs)",
-   "reqd": 1
-  },
-  {
-   "description": "In centimeters",
-   "fieldname": "height",
-   "fieldtype": "Float",
-   "label": "Height (in CMs)",
-   "reqd": 1
-  },
-  {
-   "description": "In Grams",
-   "fieldname": "weight",
-   "fieldtype": "Float",
-   "label": "Weight (in Grams)",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_78ysx",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "ondc_uom",
-   "fieldtype": "Autocomplete",
-   "label": "ONDC UOM",
-   "reqd": 1
-  },
-  {
-   "fieldname": "uom_value",
-   "fieldtype": "Int",
-   "label": "UOM Value",
-   "reqd": 1
+   "options": "Hub Seller Item Attribute"
   },
   {
    "fieldname": "seller_details_tab",
@@ -347,6 +240,43 @@
    "fieldtype": "Table",
    "label": "Additional Images",
    "options": "Website Slideshow Item"
+  },
+  {
+   "fieldname": "section_break_ldhtf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "maximum_price",
+   "fieldtype": "Currency",
+   "label": "Maximum Price"
+  },
+  {
+   "fieldname": "offered_price",
+   "fieldtype": "Currency",
+   "label": "Offered Price"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "Discount"
+  },
+  {
+   "fieldname": "column_break_ysw1d",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "maximum_quantity",
+   "fieldtype": "Int",
+   "label": "Maximum Quantity"
+  },
+  {
+   "fieldname": "available_quantity",
+   "fieldtype": "Int",
+   "label": "Available Quantity"
+  },
+  {
+   "fieldname": "column_break_oft2w",
+   "fieldtype": "Section Break"
   }
  ],
  "image_field": "image",
@@ -354,7 +284,7 @@
  "links": [],
  "make_attachments_public": 1,
  "max_attachments": 2,
- "modified": "2024-08-27 18:48:11.628552",
+ "modified": "2024-08-29 16:54:14.491742",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller Item",
