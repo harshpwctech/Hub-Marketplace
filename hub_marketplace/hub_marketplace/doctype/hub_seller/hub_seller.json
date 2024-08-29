@@ -5,18 +5,49 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "seller_name"
+  "seller_name",
+  "erpnext_url",
+  "logo",
+  "mobile_number",
+  "email",
+  "locations"
  ],
  "fields": [
   {
    "fieldname": "seller_name",
    "fieldtype": "Data",
    "label": "Seller Name"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "mobile_number",
+   "fieldtype": "Phone",
+   "label": "Mobile Number"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "erpnext_url",
+   "fieldtype": "Data",
+   "label": "ERPNext URL"
+  },
+  {
+   "fieldname": "locations",
+   "fieldtype": "Table",
+   "label": "Locations",
+   "options": "Hub Seller Location"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-27 18:43:12.905201",
+ "modified": "2024-08-29 17:25:42.496868",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller",
