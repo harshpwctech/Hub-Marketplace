@@ -1,26 +1,35 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "HUB-SLR-.#####",
  "creation": "2024-08-27 18:41:39.640156",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "seller_name",
-  "erpnext_url",
+  "brand",
   "logo",
+  "column_break_obz16",
+  "erpnext_url",
   "mobile_number",
   "email",
+  "section_break_n43g3",
+  "categories",
+  "sub_categories",
+  "section_break_kj5zt",
   "locations"
  ],
  "fields": [
   {
    "fieldname": "seller_name",
    "fieldtype": "Data",
-   "label": "Seller Name"
+   "in_list_view": 1,
+   "label": "Seller Name",
+   "reqd": 1
   },
   {
    "fieldname": "logo",
-   "fieldtype": "Image",
+   "fieldtype": "Attach Image",
    "label": "Logo"
   },
   {
@@ -43,14 +52,45 @@
    "fieldtype": "Table",
    "label": "Locations",
    "options": "Hub Seller Location"
+  },
+  {
+   "fieldname": "categories",
+   "fieldtype": "Table MultiSelect",
+   "label": "Categories",
+   "options": "Hub Item Category Detail"
+  },
+  {
+   "fieldname": "sub_categories",
+   "fieldtype": "Table MultiSelect",
+   "label": "Sub Categories",
+   "options": "Hub Item Sub Category Detail"
+  },
+  {
+   "fieldname": "column_break_obz16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_kj5zt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "brand",
+   "fieldtype": "Data",
+   "label": "Brand"
+  },
+  {
+   "fieldname": "section_break_n43g3",
+   "fieldtype": "Section Break"
   }
  ],
+ "image_field": "logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-29 17:25:42.496868",
+ "modified": "2024-09-04 16:04:49.776150",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

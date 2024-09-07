@@ -159,9 +159,9 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "hub_marketplace.event.get_events"
-# }
+override_whitelisted_methods = {
+	"hub_marketplace": "hub_marketplace.api.handle_hub_marketplace_request"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
