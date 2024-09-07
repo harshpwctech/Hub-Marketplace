@@ -5,6 +5,7 @@ const BASE_URI = "https://sit.mytra.money/api/method/hub_marketplace/";
 const GET_CATEGORIES_URI = BASE_URI + "get_categories"
 const GET_TOP_SELLERS_AND_ITEMS_URI = BASE_URI + "get_top_items_sellers"
 const GET_ITEMS_URI = BASE_URI + "get_items"
+const GET_ITEM_URI = BASE_URI + "get_item"
 const GET_SELLER_URI = BASE_URI + "get_seller"
 const hubCategories = ref([])
 
@@ -54,6 +55,15 @@ export const internalServices = () => {
         },
 
     });
+    const getItem = createResource({
+        url: GET_ITEM_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+
+    });
     const getSeller = createResource({
         url: GET_SELLER_URI,
         method: 'POST',
@@ -68,6 +78,7 @@ export const internalServices = () => {
         hubCategories,
         getTopSellersAndProducts,
         getItems,
+        getItem,
         getSeller
     };
 };
