@@ -1,89 +1,18 @@
 <template>
     <div class="bg-white">
-        <!-- Mobile menu -->
-        <TransitionRoot as="template" :show="open">
-            <Dialog class="relative z-40 lg:hidden" @close="open = false">
-                <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
-                    enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
-                    leave-to="opacity-0">
-                    <div class="fixed inset-0 bg-black bg-opacity-25" />
-                </TransitionChild>
-
-                <div class="fixed inset-0 z-40 flex">
-                    <TransitionChild as="template" enter="transition ease-in-out duration-300 transform"
-                        enter-from="-translate-x-full" enter-to="translate-x-0"
-                        leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
-                        leave-to="-translate-x-full">
-                        <DialogPanel
-                            class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                            <div class="flex px-4 pb-2 pt-5">
-                                <button type="button"
-                                    class="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
-                                    @click="open = false">
-                                    <span class="absolute -inset-0.5" />
-                                    <span class="sr-only">Close menu</span>
-                                    <XMarkIcon class="h-6 w-6" aria-hidden="true" />
-                                </button>
-                            </div>
-
-                            <!-- Links -->
-                            <TabGroup as="div" class="mt-2">
-                                <div class="border-b border-gray-200">
-                                    <TabList class="-mb-px flex space-x-8 px-4">
-                                        <Tab as="template" v-for="category in navigation.categories" :key="category.name"
-                                            v-slot="{ selected }">
-                                            <button
-                                                :class="[selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900', 'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium']">{{
-                                                    category.name }}</button>
-                                        </Tab>
-                                    </TabList>
-                                </div>
-                                <TabPanels as="template">
-                                    <TabPanel v-for="category in navigation.categories" :key="category.name"
-                                        class="space-y-10 px-4 pb-8 pt-10">
-                                        <div v-for="section in category.sections" :key="section.name">
-                                            <p :id="`${category.id}-${section.id}-heading-mobile`"
-                                                class="font-medium text-gray-900">{{ section.name }}</p>
-                                            <ul role="list" :aria-labelledby="`${category.id}-${section.id}-heading-mobile`"
-                                                class="mt-6 flex flex-col space-y-6">
-                                                <li v-for="item in section.items" :key="item.name" class="flow-root">
-                                                    <button @click="navigateToProductList(item.name)"
-                                                        class="-m-2 block p-2 text-gray-500">{{ item.name }}</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </TabPanel>
-                                </TabPanels>
-                            </TabGroup>
-
-                            <div class="space-y-6 border-t border-gray-200 px-4 py-6">
-                                <div class="flow-root">
-                                    <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
-                                </div>
-                                <div class="flow-root">
-                                    <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
-                                </div>
-                            </div>
-                        </DialogPanel>
-                    </TransitionChild>
-                </div>
-            </Dialog>
-        </TransitionRoot>
-
         <header class="relative bg-white">
-
             <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="border-b border-gray-200">
                     <div class="flex h-16 items-center">
-                        <button type="button" class="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                            @click="open = true">
+                        <button @click="openMenu" class="relative rounded-md bg-white p-2 text-gray-400">
                             <span class="absolute -inset-0.5" />
                             <span class="sr-only">Open menu</span>
                             <Bars3Icon class="h-6 w-6" aria-hidden="true" />
                         </button>
+                        <CategoryMenu />
 
                         <!-- Logo -->
-                        <div class="ml-4 flex lg:ml-0">
+                        <div class="ml-4 flex">
                             <a href="/hub_marketplace/">
                                 <span class="sr-only">Hub-Marketplace</span>
                                 <img class="h-8 w-auto" src="https://mytra.money/files/final_logo_bg_black_1.png"
@@ -91,6 +20,7 @@
                             </a>
                         </div>
 
+                        <!-- TODO: to be used with search -->
                         <!-- Flyout menus -->
                         <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
                             <div class="flex h-full space-x-8">
@@ -123,7 +53,7 @@
                                                                     class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
                                                                     <li v-for="item in section.items" :key="item.name"
                                                                         class="flex">
-                                                                        <button @click="navigateToProductList(item.name)"
+                                                                        <button @click="navigateToProductList1(item.name)"
                                                                             class="hover:text-gray-800">{{ item.name
                                                                             }}</button>
                                                                     </li>
@@ -150,6 +80,7 @@
                                 <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
                             </div>
 
+                            <!-- TODO: Make it as a input text in the navebar itself -->
                             <!-- Search -->
                             <div class="flex lg:ml-6">
                                 <button @click="openSearchComponent" class="p-2 text-gray-400 hover:text-gray-500">
@@ -178,27 +109,18 @@
 </template>
   
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import {
-    Dialog,
-    DialogPanel,
     Popover,
     PopoverButton,
     PopoverGroup,
     PopoverPanel,
-    Tab,
-    TabGroup,
-    TabList,
-    TabPanel,
-    TabPanels,
-    TransitionChild,
-    TransitionRoot,
-} from '@headlessui/vue'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { eventBus } from '../eventbus'
-import SearchComponent from '../components/SearchComponent.vue'
-import Cart from '../components/Cart.vue'
+} from '@headlessui/vue';
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline';
+import { eventBus } from '../eventbus';
+import SearchComponent from '../components/SearchComponent.vue';
+import Cart from '../components/Cart.vue';
+import CategoryMenu from '../components/CategoryMenu.vue';
 
 const navigation = {
     categories: [
@@ -486,19 +408,19 @@ const navigation = {
         },
     ]
 }
-
-const open = ref(false)
 const router = useRouter()
 const openSearchComponent = () => {
-  eventBus.searchOpen = true;
+    eventBus.searchOpen = true;
 };
 const openCart = () => {
-  eventBus.cartOpen = true;
+    eventBus.cartOpen = true;
+};
+const openMenu = () => {
+    eventBus.menuOpen = true;
 };
 
-function navigateToProductList(categoryName) {
+function navigateToProductList1(categoryName) {
     router.push({ name: 'ProductList', params: { categoryName } });
-    open.value = false
 };
 
 </script>

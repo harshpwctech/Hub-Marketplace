@@ -186,33 +186,23 @@ import SkeletonGrid from '../components/SkeletonGrid.vue'
 import { internalServices } from '../services/internalServices'
 
 const props = defineProps({
-    categoryName: {
-        type: String,
+    seller: {
+        type: Object,
         required: true
-    },
-    subCategoryName: {
-        type: String,
-        required: false
     }
 });
 const useInternalServices = internalServices();
-const hubCategories = useInternalServices.hubCategories;
 const isLoading = ref(true)
 const products = ref([])
 const subCategories = ref([])
 const fetchItemsFilters = ref({
-    category: props.categoryName
+    hub_seller: props.seller.name
 })
-if (props.subCategoryName) {
-    fetchItemsFilters.value.sub_category = props.subCategoryName;
-}
 onMounted(() => {
     fetchItems()
-    const categoryObject = hubCategories.value.find(category => category.name === props.categoryName);
-    if (categoryObject) {
-        subCategories.value = categoryObject.sub_category || [];
-    } else {
-        console.error(`Category with name ${props.categoryName} not found`);
+    const sellerSubCategoryList = props.seller.sub_categories;
+    if (sellerSubCategoryList) {
+        subCategories.value = sellerSubCategoryList;
     }
 })
 const fetchItems = async () => {

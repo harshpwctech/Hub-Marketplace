@@ -1,10 +1,10 @@
 <template>
     <div class="bg-gray-50">
-        <div class="mx-auto max-w-7xl py-8 sm:px-2 sm:py-32 lg:px-4">
+        <div class="mx-auto max-w-7xl py-4 sm:px-2 lg:py-12 lg:px-4">
             <div class="max-w-3xl">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-900">We connect buyers with right sellers</h2>
             </div>
-            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-12 lg:max-w-none lg:grid-cols-3">
+            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 px-4 py-8 lg:max-w-none lg:grid-cols-3">
                 <div v-for="incentive in incentives" :key="incentive.name"
                     class="text-center sm:flex sm:text-left lg:block lg:text-center">
                     <div class="sm:flex-shrink-0">
