@@ -13,15 +13,15 @@
                     <!-- Carousel wrapper -->
                     <div class="flex-1 relative overflow-hidden">
                         <div ref="carousel" class="flex overflow-x-auto no-scrollbar space-x-1 scroll-smooth">
-                        <div v-for="seller in sellers" :key="seller.id"
+                        <div v-for="seller in sellers" :key="seller.name"
                             class="flex-shrink-0 text-center flex flex-col items-center w-1/3 sm:w-1/4 lg:w-1/6">
                             <button @click="navigateToSellerInfo(seller)" class="block">
                                 <div class="border border-gray-300 rounded-full overflow-hidden w-24 h-24 bg-white mx-auto">
-                                    <img :src="seller.logo" :alt="seller.name" class="object-contain w-full h-full"
+                                    <img :src="seller.logo" :alt="seller.seller_name" class="object-contain w-full h-full"
                                         loading="lazy" />
                                 </div>
                                 <div class="w-24 mt-2 font-semibold text-sm">
-                                    <span class="block text-black truncate">{{ seller.name }}</span>
+                                    <span class="block text-black truncate">{{ seller.seller_name }}</span>
                                 </div>
                             </button>
                         </div>
@@ -45,23 +45,20 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid';
 
+const props = defineProps({
+    sellers: {
+        type: Array,
+        required: true
+    }
+});
+
 const router = useRouter()
 function navigateToSellerInfo(sellerInfo) {
     const seller = sellerInfo.name
     router.push({ name: 'SellerInfo', params: { seller } });
 }
 
-const sellers = [
-    { id: 1, name: "Croma", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/65afa4d2b198629decb56db8/croma-tata-product_logo_1-01-150x150.jpg" },
-    { id: 2, name: "ACwO", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/653fb3ac6ea308188279f509/acwo-logo-ytsm-copy-150x150.jpg" },
-    { id: 3, name: "boAt", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/c/abe2038c90cf45ee9256695e4a3c72c6/default-150x150.png" },
-    { id: 4, name: "Vega", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/6468bcc131f9c483239b2c6a/vega-final-logo-1--150x150.png" },
-    { id: 5, name: "Poompuhar", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/64da0b58b5bcf9bb1e3fa31d/logo_poompuhar-150x150.png" },
-    { id: 6, name: "Garvi Gurjari", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/65326792c1271ecbbca29cee/logo_finel_19-6-2018-150x150.png" },
-    { id: 7, name: "Boult Audio", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/c/dbad222951f14940a9a23b6131054181/default-150x150.png" },
-    { id: 8, name: "IGEAR", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/63fed722d2b65b3b57954d44/igear-logo-jpeg-150x150.jpg" },
-    { id: 9, name: "FIXDERMA INDIA PRIVATE LIMITED", logo: "https://www.mystore.in/s/62ea2c599d1398fa16dbae0a/645a1e438b3cffdfc4595e61/fixderma-logo-400-x-400-2--150x150.jpg" }
-];
+const sellers = props.sellers;
 
 const carousel = ref(null);
 
