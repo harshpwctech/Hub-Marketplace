@@ -51,8 +51,6 @@ def get_items(**kwargs):
     items = frappe.get_all("Hub Seller Item", filters=item_filters, fields=item_fields)
     return items
 
-def get_seller(hub_seller):
-    return frappe.get_cached_doc("Hub Seller", hub_seller)
 
 class masterServices:
     def __init__(self, request, data):
@@ -71,5 +69,8 @@ class masterServices:
             return get_items(**kwargs)
         elif self.request == "get_seller":
             hub_seller = self.data.hub_seller
-            return get_seller(hub_seller)
+            return frappe.get_cached_doc("Hub Seller", hub_seller)
+        elif self.request == "get_item":
+            name = self.data.name
+            return frappe.get_cached_doc("Hub Seller Item", name)
     
