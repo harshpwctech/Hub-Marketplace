@@ -1,6 +1,6 @@
 <template>
     <NavBar />
-    <ProductDetails />
+    <ProductDetails :productName="productName"/>
     <section aria-labelledby="reviews-heading" class="mx-auto max-w-7xl overflow-hidden">
         <h2 id="reviews-heading" class="text-lg font-medium text-gray-900 sm:px-6 lg:px-8">Recent reviews</h2>
         <ProductReview />
@@ -25,6 +25,9 @@ const props = defineProps({
         required: true
     }
 });
+const productName = props.productName
+//TODO: API to get related products
+//TODO: API to get product review and send the same to ProductReview component
 const relatedProducts = [
   {
     id: 1,
