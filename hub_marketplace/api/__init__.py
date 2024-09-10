@@ -1,7 +1,7 @@
 import frappe
 from hub_marketplace.api.master import masterServices
 
-MASTER_SERVICES = ["get_categories", "get_top_items_sellers", "get_items", "get_item", "get_seller"]
+MASTER_SERVICES = ["get_categories", "get_top_items_sellers", "get_items", "get_item", "get_seller", "get_sub_category"]
 
 @frappe.whitelist(allow_guest=True)
 def handle_hub_marketplace_request():

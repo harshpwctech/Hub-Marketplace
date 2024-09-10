@@ -73,4 +73,7 @@ class masterServices:
         elif self.request == "get_item":
             name = self.data.name
             return frappe.get_cached_doc("Hub Seller Item", name)
+        elif self.request == "get_sub_category":
+            sub_category = self.data.sub_category
+            return frappe.get_cached_doc("Hub Item Sub Category", sub_category)
     
