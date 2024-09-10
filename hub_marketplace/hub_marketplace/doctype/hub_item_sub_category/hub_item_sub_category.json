@@ -10,7 +10,10 @@
  "engine": "InnoDB",
  "field_order": [
   "sub_category",
-  "image"
+  "image",
+  "section_break_rjyou",
+  "statutory_attributes",
+  "additional_attributes"
  ],
  "fields": [
   {
@@ -25,11 +28,27 @@
    "fieldname": "image",
    "fieldtype": "Attach",
    "label": "Image"
+  },
+  {
+   "fieldname": "section_break_rjyou",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "statutory_attributes",
+   "fieldtype": "Table",
+   "label": "Statutory Attributes",
+   "options": "Hub Item Sub Category Attribute"
+  },
+  {
+   "fieldname": "additional_attributes",
+   "fieldtype": "Table",
+   "label": "Additional Attributes",
+   "options": "Hub Item Sub Category Attribute"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-08-29 16:47:05.045908",
+ "modified": "2024-09-10 15:16:54.067007",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Item Sub Category",
