@@ -2,7 +2,7 @@
     <div class="bg-white">
         <header class="relative bg-white">
             <div id="banner" v-if="showBanner"
-                class="flex h-10 items-center justify-center bg-[var(--theme-color-light)] px-4 text-sm font-medium text-gray-800 sm:px-6 lg:px-8">
+                class="flex h-8 items-center justify-center bg-[var(--theme-color-light)] px-4 text-sm font-medium text-gray-800 sm:px-6 lg:px-8">
                 <p>
                     Get listed as a Seller (<a href="#">click here</a>).
                 </p>
