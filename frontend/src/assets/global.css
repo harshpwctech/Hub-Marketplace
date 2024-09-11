@@ -1,6 +1,7 @@
 :root {
     --theme-color: #61D3A0;
-    --theme-color-dark: #51B596; /* Optional: For hover or dark theme */
+    --theme-color-dark: #51B596;
+    --theme-color-light: #A2E5C8; /* Optional: For hover or dark theme */
   }
   
   /* Example for using the theme color in buttons */

@@ -45,12 +45,12 @@
                                         <li v-if="!category.sub_category || category.sub_category.length === 0"
                                             class="flow-root">
                                             <button @click.prevent="navigateToProductList(category.name)"
-                                                class="-m-2 block p-2 text-gray-500">{{ category.name }}</button>
+                                                class="-m-2 block p-2 text-gray-500 w-full text-left">{{ category.name }}</button>
                                         </li>
                                         <li v-else v-for="subCategory in category.sub_category"
                                             :key="subCategory.sub_category" class="flow-root">
                                             <button @click.prevent="navigateToProductList(category.name, subCategory.sub_category)"
-                                                class="-m-2 block p-2 text-gray-500">{{ subCategory.sub_category }}</button>
+                                                class="-m-2 block p-2 text-gray-500 w-full text-left">{{ subCategory.sub_category }}</button>
                                         </li>
                                     </ul>
                                 </DisclosurePanel>

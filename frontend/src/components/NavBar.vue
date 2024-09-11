@@ -1,6 +1,15 @@
 <template>
     <div class="bg-white">
         <header class="relative bg-white">
+            <div id="banner" v-if="showBanner"
+                class="flex h-10 items-center justify-center bg-[var(--theme-color-light)] px-4 text-sm font-medium text-gray-800 sm:px-6 lg:px-8">
+                <p>
+                    Get listed as a Seller (<a href="#">click here</a>).
+                </p>
+                <button @click="closeBanner" class="text-gray-800 absolute right-4">
+                    <XMarkIcon class="h-5 w-5" aria-hidden="true" />
+                </button>
+            </div>
             <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="border-b border-gray-200">
                     <div class="flex h-16 items-center">
@@ -109,6 +118,7 @@
 </template>
   
 <script setup>
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import {
     Popover,
@@ -116,7 +126,7 @@ import {
     PopoverGroup,
     PopoverPanel,
 } from '@headlessui/vue';
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon } from '@heroicons/vue/24/outline';
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import { eventBus } from '../eventbus';
 import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
@@ -408,6 +418,17 @@ const navigation = {
         },
     ]
 }
+const showBanner = ref(true);
+
+const closeBanner = () => {
+  showBanner.value = false;
+  sessionStorage.setItem('bannerClosed', 'true');
+};
+onMounted(() => {
+  if (sessionStorage.getItem('bannerClosed') === 'true') {
+    showBanner.value = false;
+  }
+});
 const router = useRouter()
 const openSearchComponent = () => {
     eventBus.searchOpen = true;

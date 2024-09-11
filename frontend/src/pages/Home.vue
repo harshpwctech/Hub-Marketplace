@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div v-if="!isLoading">
-    <div v-for="(items, category, index) in productList" :key="category">
+    <div v-for="(items, category) in productList" :key="category">
       <div class="mx-auto max-w-7xl overflow-hidden py-8 sm:px-6 lg:px-8">
         <div class="md:flex md:items-center md:justify-between">
           <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ category }}</h2>
@@ -17,8 +17,8 @@
         <h2 class="text-4xl font-bold tracking-tight text-gray-900">Top {{ category }} Sellers</h2>
       </div>
       <SellersGrid :sellers="items.sellers" />
-      <HubPromo v-if="index === 3" />
     </div>
+    <HubPromo />
   </div>
   <div v-else>
     <SkeletonGrid />
