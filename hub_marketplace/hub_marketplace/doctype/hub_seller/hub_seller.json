@@ -11,11 +11,13 @@
   "logo",
   "column_break_obz16",
   "erpnext_url",
-  "mobile_number",
-  "email",
+  "user",
   "section_break_n43g3",
   "categories",
   "sub_categories",
+  "column_break_oa2rs",
+  "mobile_number",
+  "email",
   "section_break_kj5zt",
   "locations"
  ],
@@ -81,12 +83,22 @@
   {
    "fieldname": "section_break_n43g3",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "column_break_oa2rs",
+   "fieldtype": "Column Break"
   }
  ],
  "image_field": "logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-04 16:04:49.776150",
+ "modified": "2024-09-11 16:46:24.339279",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller",
