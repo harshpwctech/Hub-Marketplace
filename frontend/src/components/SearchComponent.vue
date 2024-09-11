@@ -35,7 +35,7 @@
 import { ref, watch } from 'vue';
 import { TextInput, FeatherIcon } from 'frappe-ui';
 import { Dialog, DialogPanel, TransitionRoot, TransitionChild } from '@headlessui/vue';
-import { eventBus } from '../eventbus'
+import { eventBus } from '../eventBus'
 
 const searchQuery = ref('');
 watch(() => eventBus.searchOpen, (newValue) => {

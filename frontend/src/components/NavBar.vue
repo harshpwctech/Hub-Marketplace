@@ -127,7 +127,7 @@ import {
     PopoverPanel,
 } from '@headlessui/vue';
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { eventBus } from '../eventbus';
+import { eventBus } from '../eventBus';
 import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
 import CategoryMenu from '../components/CategoryMenu.vue';

@@ -84,7 +84,7 @@ import {
 } from '@headlessui/vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
-import { eventBus } from '../eventbus'
+import { eventBus } from '../eventBus'
 import { internalServices } from '../services/internalServices'
 
 const router = useRouter()
