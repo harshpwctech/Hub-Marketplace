@@ -4,5 +4,5 @@
 # import frappe
 from frappe.model.document import Document
 
-class HubItemSubCategoryAttribute(Document):
+class HubItemCategoryAttributeDetail(Document):
 	pass

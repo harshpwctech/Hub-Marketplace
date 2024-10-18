@@ -9,9 +9,15 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "category",
+  "lft",
+  "rgt",
+  "is_group",
+  "parent_hub_item_category",
   "image",
-  "sub_category"
+  "category",
+  "section_break_yhgq5",
+  "statutory_attributes",
+  "additional_attributes"
  ],
  "fields": [
   {
@@ -28,21 +34,61 @@
    "label": "Image"
   },
   {
-   "fieldname": "sub_category",
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "parent_hub_item_category",
+   "fieldtype": "Link",
+   "label": "Parent Hub Item Category",
+   "options": "Hub Item Category"
+  },
+  {
+   "fieldname": "section_break_yhgq5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "statutory_attributes",
    "fieldtype": "Table",
-   "label": "Sub Category",
-   "options": "Hub Item Sub Category Detail"
+   "label": "Statutory Attributes",
+   "options": "Hub Item Category Attribute Detail"
+  },
+  {
+   "fieldname": "additional_attributes",
+   "fieldtype": "Table",
+   "label": "Additional Attributes",
+   "options": "Hub Item Category Attribute Detail"
   }
  ],
  "image_field": "image",
  "index_web_pages_for_search": 1,
+ "is_tree": 1,
  "links": [],
- "modified": "2024-08-29 16:49:16.385610",
+ "modified": "2024-10-18 15:28:30.857754",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Item Category",
  "name_case": "Title Case",
  "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_hub_item_category",
  "owner": "Administrator",
  "permissions": [
   {
