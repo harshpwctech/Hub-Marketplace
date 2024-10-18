@@ -2,10 +2,28 @@ import frappe
 
 def get_categories():
     response = []
-    categories = frappe.get_all("Hub Item Category")
+    categories = frappe.get_all("Hub Item Category", filters={"is_group": 1})
     for c in categories:
         if frappe.db.exists("Hub Seller Item", {"category": c.name}):
-            response.append(frappe.get_cached_doc("Hub Item Category", c.name))
+            category = frappe.get_cached_doc("Hub Item Category", c.name).as_dict()
+            category.sub_category = []
+            sub_categories = frappe.get_all("Hub Item Category", filters={"parent_hub_item_category": c.name})
+            for s in sub_categories:
+                if frappe.db.exists("Hub Seller Item", {"sub_category": s.name}):
+                    category.sub_category.append(frappe.get_cached_doc("Hub Item Category", s.name))
+            response.append(category)
+    return response
+
+def get_seller_categories():
+    response = []
+    categories = frappe.get_all("Hub Item Category", filters={"is_group": 1})
+    for c in categories:
+        category = frappe.get_cached_doc("Hub Item Category", c.name).as_dict()
+        category.sub_category = []
+        sub_categories = frappe.get_all("Hub Item Category", filters={"parent_hub_item_category": c.name})
+        for s in sub_categories:
+            category.sub_category.append(frappe.get_cached_doc("Hub Item Category", s.name))
+        response.append(category)
     return response
 
 def get_top_items_sellers(category):
@@ -53,27 +71,32 @@ def get_items(**kwargs):
 
 
 class masterServices:
-    def __init__(self, request, data):
-        self.request = request
-        data.pop("cmd")
+    def __init__(self, data):
         self.data = frappe._dict(data)
     
-    def handle(self):
-        if self.request == "get_categories":
-            return get_categories()
-        elif self.request == "get_top_items_sellers":
-            category = self.data.category
-            return get_top_items_sellers(category)
-        elif self.request == "get_items":
-            kwargs = self.data
-            return get_items(**kwargs)
-        elif self.request == "get_seller":
-            hub_seller = self.data.hub_seller
-            return frappe.get_cached_doc("Hub Seller", hub_seller)
-        elif self.request == "get_item":
-            name = self.data.name
-            return frappe.get_cached_doc("Hub Seller Item", name)
-        elif self.request == "get_sub_category":
-            sub_category = self.data.sub_category
-            return frappe.get_cached_doc("Hub Item Sub Category", sub_category)
+    def get_categories(self):
+        return get_categories()
+    
+    def get_seller_categories(self):
+        return get_seller_categories()
+    
+    def get_top_items_sellers(self):
+        category = self.data.category
+        return get_top_items_sellers(category)
+    
+    def get_items(self):
+        kwargs = self.data
+        return get_items(**kwargs)
+    
+    def get_seller(self):
+        hub_seller = self.data.hub_seller
+        return frappe.get_cached_doc("Hub Seller", hub_seller)
+    
+    def get_item(self):
+        name = self.data.name
+        return frappe.get_cached_doc("Hub Seller Item", name)
+    
+    def get_category(self):
+        name = self.data.category
+        return frappe.get_cached_doc("Hub Item Category", name)
     
