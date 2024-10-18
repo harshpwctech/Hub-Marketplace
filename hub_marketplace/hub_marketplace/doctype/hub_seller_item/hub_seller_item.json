@@ -11,8 +11,6 @@
   "hub_seller",
   "column_break_wfnu",
   "seller_name",
-  "column_break_sxeq",
-  "warehouse_id",
   "item_details_tab",
   "seller_item_code",
   "item_name",
@@ -28,8 +26,7 @@
   "offered_price",
   "discount",
   "column_break_ysw1d",
-  "maximum_quantity",
-  "available_quantity",
+  "warehouse_detail",
   "fulfilment_settings_section",
   "returnable",
   "pickup_on_return",
@@ -86,7 +83,7 @@
    "fieldname": "sub_category",
    "fieldtype": "Link",
    "label": "Sub Category",
-   "options": "Hub Item Sub Category",
+   "options": "Hub Item Category",
    "reqd": 1
   },
   {
@@ -183,13 +180,13 @@
    "fieldname": "specifications",
    "fieldtype": "Table",
    "label": "Statutory Specifications",
-   "options": "Hub Seller Item Attribute"
+   "options": "Hub Seller Item Attribute Detail"
   },
   {
    "fieldname": "additional_specifications",
    "fieldtype": "Table",
    "label": "Additional Specifications",
-   "options": "Hub Seller Item Attribute"
+   "options": "Hub Seller Item Attribute Detail"
   },
   {
    "fieldname": "seller_details_tab",
@@ -212,15 +209,6 @@
    "fieldname": "seller_name",
    "fieldtype": "Data",
    "label": "Seller Name"
-  },
-  {
-   "fieldname": "column_break_sxeq",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "warehouse_id",
-   "fieldtype": "Data",
-   "label": "Warehouse ID"
   },
   {
    "fieldname": "seller_item_code",
@@ -252,7 +240,8 @@
   {
    "fieldname": "maximum_price",
    "fieldtype": "Currency",
-   "label": "Maximum Price"
+   "label": "Maximum Price",
+   "reqd": 1
   },
   {
    "fieldname": "offered_price",
@@ -270,18 +259,15 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "maximum_quantity",
-   "fieldtype": "Int",
-   "label": "Maximum Quantity"
-  },
-  {
-   "fieldname": "available_quantity",
-   "fieldtype": "Int",
-   "label": "Available Quantity"
-  },
-  {
    "fieldname": "column_break_oft2w",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "warehouse_detail",
+   "fieldtype": "Table",
+   "label": "Warehouse Detail",
+   "options": "Hub Seller Item Warehouse Detail",
+   "reqd": 1
   }
  ],
  "image_field": "image",
@@ -289,7 +275,7 @@
  "links": [],
  "make_attachments_public": 1,
  "max_attachments": 2,
- "modified": "2024-09-04 17:42:01.844179",
+ "modified": "2024-10-18 15:42:55.974446",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller Item",
@@ -305,6 +291,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Hub Seller",
    "share": 1,
    "write": 1
   }

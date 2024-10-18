@@ -11,7 +11,6 @@
   "logo",
   "column_break_obz16",
   "erpnext_url",
-  "user",
   "section_break_n43g3",
   "categories",
   "sub_categories",
@@ -36,7 +35,7 @@
   },
   {
    "fieldname": "mobile_number",
-   "fieldtype": "Phone",
+   "fieldtype": "Data",
    "label": "Mobile Number"
   },
   {
@@ -53,7 +52,7 @@
    "fieldname": "locations",
    "fieldtype": "Table",
    "label": "Locations",
-   "options": "Hub Seller Location"
+   "options": "Hub Seller Location Detail"
   },
   {
    "fieldname": "categories",
@@ -65,7 +64,7 @@
    "fieldname": "sub_categories",
    "fieldtype": "Table MultiSelect",
    "label": "Sub Categories",
-   "options": "Hub Item Sub Category Detail"
+   "options": "Hub Item Category Detail"
   },
   {
    "fieldname": "column_break_obz16",
@@ -85,12 +84,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "user",
-   "fieldtype": "Link",
-   "label": "User",
-   "options": "User"
-  },
-  {
    "fieldname": "column_break_oa2rs",
    "fieldtype": "Column Break"
   }
@@ -98,7 +91,7 @@
  "image_field": "logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-09-11 16:46:24.339279",
+ "modified": "2024-10-18 15:44:28.127145",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller",
@@ -114,6 +107,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Hub Seller",
    "share": 1,
    "write": 1
   }

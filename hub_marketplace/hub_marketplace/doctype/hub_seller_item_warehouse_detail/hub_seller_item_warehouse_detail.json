@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-10-10 12:55:21.225838",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "warehouse_id",
+  "available_quantity",
+  "maximum_quantity"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Warehouse ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "available_quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Available Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "maximum_quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Maximum Quantity",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-10-10 12:56:56.218054",
+ "modified_by": "Administrator",
+ "module": "Hub Marketplace",
+ "name": "Hub Seller Item Warehouse Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
