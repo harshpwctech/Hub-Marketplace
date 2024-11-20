@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:attribute",
+ "creation": "2024-11-19 15:17:55.713049",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "attribute",
+  "mandatory",
+  "column_break_k3thv",
+  "ondc_section_section",
+  "ondc_value",
+  "column_break_5qvw6",
+  "mandatory_on_ondc"
+ ],
+ "fields": [
+  {
+   "fieldname": "attribute",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Attribute",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "ondc_section_section",
+   "fieldtype": "Section Break",
+   "label": "ONDC Section"
+  },
+  {
+   "fieldname": "ondc_value",
+   "fieldtype": "Data",
+   "label": "ONDC Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "mandatory",
+   "fieldtype": "Check",
+   "label": "Mandatory"
+  },
+  {
+   "fieldname": "column_break_k3thv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "mandatory_on_ondc",
+   "fieldtype": "Check",
+   "label": "Mandatory on ONDC"
+  },
+  {
+   "fieldname": "column_break_5qvw6",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-19 15:21:38.685200",
+ "modified_by": "Administrator",
+ "module": "Hub Marketplace",
+ "name": "Hub Item Attribute",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -45,7 +45,9 @@
   "long_description",
   "column_break_20",
   "specifications",
-  "additional_specifications"
+  "additional_specifications",
+  "more_information_tab",
+  "recommended_items"
  ],
  "fields": [
   {
@@ -268,6 +270,17 @@
    "label": "Warehouse Detail",
    "options": "Hub Seller Item Warehouse Detail",
    "reqd": 1
+  },
+  {
+   "fieldname": "more_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "recommended_items",
+   "fieldtype": "Table",
+   "label": "Recommended Items",
+   "options": "Hub Recommended Item"
   }
  ],
  "image_field": "image",
@@ -275,7 +288,7 @@
  "links": [],
  "make_attachments_public": 1,
  "max_attachments": 2,
- "modified": "2024-10-18 15:42:55.974446",
+ "modified": "2024-11-20 18:19:32.725826",
  "modified_by": "Administrator",
  "module": "Hub Marketplace",
  "name": "Hub Seller Item",
