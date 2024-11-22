@@ -10,7 +10,10 @@ const routes = [
     path: '/product_list/:categoryName',
     name: 'ProductList',
     component: () => import('@/pages/ProductList.vue'),
-    props: true
+    props: (route) => ({
+        categoryName: route.params.categoryName,
+        subCategoryName: route.query.subCategoryName || null,
+    }),
   },
   {
     path: '/product/:productName',
@@ -22,6 +25,12 @@ const routes = [
     path: '/seller/:seller',
     name: 'SellerInfo',
     component: () => import('@/pages/SellerInfo.vue'),
+    props: true
+  },
+  {
+    path: '/seller_categories',
+    name: 'SellerCategories',
+    component: () => import('@/pages/SellerCategories.vue'),
     props: true
   },
 ]

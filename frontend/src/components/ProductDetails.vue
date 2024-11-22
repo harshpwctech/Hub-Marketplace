@@ -25,10 +25,10 @@
                         <div class="max-w-2xl mx-auto">
                             <TabPanel v-for="image in product.images" :key="image.id">
                                 <div class="relative w-full h-80 sm:h-96 lg:h-[500px] overflow-hidden rounded-lg">
-                                <img :src="image.src" :alt="image.alt"
-                                class="h-full w-full object-contain object-center sm:rounded-lg" />
+                                    <img :src="image.src" :alt="image.alt"
+                                        class="h-full w-full object-contain object-center sm:rounded-lg" />
                                 </div>
-                        </TabPanel>
+                            </TabPanel>
 
                         </div>
                     </TabPanels>
@@ -63,7 +63,7 @@
                     </div>
 
                     <form class="mt-6">
-                        <div v-if="product.variants">
+                        <div v-if="product.variants && product.variants.length > 0">
                             <!-- Colors -->
                             <div>
                                 <h3 class="text-sm font-medium text-gray-600">Color</h3>
@@ -117,12 +117,12 @@
                         <div class="mt-10 flex">
                             <button type="submit"
                                 class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
-                                :style="{ backgroundColor: 'var(--theme-color)' }">Add to bag</button>
+                                :style="{ backgroundColor: 'var(--theme-color)' }">Get Quotation</button>
 
                             <button type="button"
                                 class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                                 <HeartIcon class="h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                                <span class="sr-only">Add to favorites</span>
+                                <span class="sr-only">Add to wishlist</span>
                             </button>
                         </div>
                     </form>
@@ -245,9 +245,55 @@ function createProductData(itemData) {
         description: itemData.item_name,
         details: []
     }
-    if (itemData.image){
-        data.images.push({src: itemData.image})
+    if (itemData.image) {
+        data.images.push({ src: itemData.image })
     }
+    if (itemData.additional_images.length) {
+        itemData.additional_images.forEach((image) => {
+            data.images.push({ src: image.url })
+        })
+    }
+    if (itemData.long_description) {
+        data.details.push({
+            name: 'Description',
+            items: [itemData.long_description],
+            idx: 1
+        })
+    }
+
+    if (itemData.additional_specifications.length){
+        let itemFeatures = []
+        itemData.additional_specifications.forEach((specification) => {
+            itemFeatures.push(`${specification.attribute} - ${specification.value}`)
+        })
+        data.details.push({
+            name: 'Features',
+            items: itemFeatures,
+            idx: 2
+        });
+
+    }
+    let returnTimeInDays = itemData.return_within / (60 * 60 * 24); // Convert seconds to days
+    let returnTimeText;
+
+    if (returnTimeInDays >= 1) {
+        returnTimeText = `${Math.floor(returnTimeInDays)} day(s)`;
+    } else {
+        let returnTimeInHours = itemData.return_within / (60 * 60); // Convert seconds to hours
+        returnTimeText = `${Math.floor(returnTimeInHours)} hour(s)`;
+    }
+
+    let returnPolicyText = itemData.returnable
+        ? `Returnable within ${returnTimeText}`
+        : `Non-returnable, but can be returned within ${returnTimeText} in case of defect/wrong product delivered.`;
+
+    data.details.push({
+        name: 'Return Policy',
+        items: [returnPolicyText],
+        idx: 3
+    });
+
+
     return product.value = data
 };
 const router = useRouter();

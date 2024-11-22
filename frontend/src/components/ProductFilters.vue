@@ -31,8 +31,8 @@
                                 <form class="mt-4 border-t border-gray-200">
                                     <h3 class="sr-only">Categories</h3>
                                     <ul role="list" class="px-2 py-3 font-medium text-gray-900" style="max-height: 300px; overflow-y: auto;">
-                                        <li v-for="category in subCategories" :key="category.sub_category">
-                                            <button @click="getSubCategoryItems(category.sub_category)" class="w-full text-left block px-2 py-3">{{ category.sub_category }}</button>
+                                        <li v-for="category in subCategories" :key="category.name">
+                                            <button @click="getSubCategoryItems(category.name)" class="w-full text-left block px-2 py-3">{{ category.name }}</button>
                                         </li>
                                     </ul>
 
@@ -118,8 +118,8 @@
                             <ul role="list"
                                 class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
                                 style="max-height: 400px; overflow-y: auto;">
-                                <li v-for="category in subCategories" :key="category.sub_category">
-                                    <button @click.prevent="getSubCategoryItems(category.sub_category)" class="w-full text-left">{{ category.sub_category }}</button>
+                                <li v-for="category in subCategories" :key="category.name">
+                                    <button @click.prevent="getSubCategoryItems(category.name)" class="w-full text-left">{{ category.name }}</button>
                                 </li>
                             </ul>
 
