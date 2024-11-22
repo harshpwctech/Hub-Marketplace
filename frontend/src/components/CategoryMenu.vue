@@ -25,10 +25,10 @@
                         <form class="mt-2">
                             <div class="border-b border-gray-200">
                                 <h3 class="sr-only">Categories</h3>
-                                <p class="block px-4 py-8 font-bold">Categories</p>
+                                <p class="block px-4 py-6 font-bold">Categories</p>
                             </div>
                             <Disclosure as="div" v-for="category in hubCategories" :key="category.name"
-                                class="border-t border-gray-200 px-4 py-6" v-slot="{ open }">
+                                class="border-t border-gray-200 px-4 py-3 z-10" v-slot="{ open }">
                                 <h3 class="-mx-2 -my-3 flow-root">
                                     <DisclosureButton
                                         class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
@@ -41,27 +41,29 @@
                                 </h3>
                                 <DisclosurePanel class="space-y-10 px-4 py-4">
                                     <ul role="list" :aria-labelledby="`${category.name}-heading-mobile`"
-                                        class="mt-6 flex flex-col space-y-6">
+                                        class="flex flex-col space-y-2" style="max-height: 300px; overflow-y: auto;">
                                         <li v-if="!category.sub_category || category.sub_category.length === 0"
                                             class="flow-root">
                                             <button @click.prevent="navigateToProductList(category.name)"
                                                 class="-m-2 block p-2 text-gray-500 w-full text-left">{{ category.name }}</button>
                                         </li>
                                         <li v-else v-for="subCategory in category.sub_category"
-                                            :key="subCategory.sub_category" class="flow-root">
-                                            <button @click.prevent="navigateToProductList(category.name, subCategory.sub_category)"
-                                                class="-m-2 block p-2 text-gray-500 w-full text-left">{{ subCategory.sub_category }}</button>
+                                            :key="subCategory.name" class="flow-root">
+                                            <button @click.prevent="navigateToProductList(category.name, subCategory.name)"
+                                                class="-m-2 block p-2 text-gray-500 w-full text-left">{{ subCategory.name }}</button>
                                         </li>
                                     </ul>
                                 </DisclosurePanel>
                             </Disclosure>
                         </form>
-                        <div class="space-y-6 border-t border-gray-200 px-4 py-20">
-                            <div class="flow-root">
-                                <a href="#" class="-m-2 block p-2 font-normal text-gray-900">Sign in</a>
-                            </div>
-                            <div class="flow-root">
-                                <a href="#" class="-m-2 block p-2 font-normal text-gray-900">Create account</a>
+                        <div v-if="!session.isLoggedIn">
+                            <div class="space-y-6 border-t border-gray-200 px-4 py-20">
+                                <div class="flow-root">
+                                    <a href="/login" class="-m-2 block p-2 font-normal text-gray-900">Sign in</a>
+                                </div>
+                                <div class="flow-root">
+                                    <a href="/login#signup" class="-m-2 block p-2 font-normal text-gray-900">Create account</a>
+                                </div>
                             </div>
                         </div>
                     </DialogPanel>
@@ -86,18 +88,23 @@ import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
 import { eventBus } from '../eventBus'
 import { internalServices } from '../services/internalServices'
+import { sessionStore } from '@/services/session'
 
 const router = useRouter()
+const session = sessionStore()
 const { hubCategories } = internalServices();
 
 function navigateToProductList(categoryName, subCategoryName = null) {
-    const params = { categoryName };
-    
+    const query = {};
     if (subCategoryName) {
-        params.subCategoryName = subCategoryName;
+        query.subCategoryName = subCategoryName; // Add subCategoryName to query only if provided
     }
-    
-    router.push({ name: 'ProductList', params });
+    router.push({ name: 'ProductList', params: { categoryName }, query })
+    .catch((err) => {
+        if (err.name !== 'NavigationDuplicated') {
+            console.error(err);
+        }
+    });
     eventBus.menuOpen = false;
 }
 

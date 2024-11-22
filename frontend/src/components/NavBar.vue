@@ -2,12 +2,12 @@
     <div class="bg-white">
         <header class="relative bg-white">
             <div id="banner" v-if="showBanner"
-                class="flex h-8 items-center justify-center bg-[var(--theme-color-light)] px-4 text-sm font-medium text-gray-800 sm:px-6 lg:px-8">
-                <p>
+                class="flex h-8 items-center justify-center bg-[var(--theme-color)] px-4 text-sm font-medium text-gray-800 sm:px-6 lg:px-8">
+                <p class="text-white">
                     Get listed as a Seller (<a href="#">click here</a>).
                 </p>
                 <button @click="closeBanner" class="text-gray-800 absolute right-4">
-                    <XMarkIcon class="h-5 w-5" aria-hidden="true" />
+                    <XMarkIcon class="h-5 w-5 text-white" aria-hidden="true" />
                 </button>
             </div>
             <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,10 +83,37 @@
                         </PopoverGroup>
 
                         <div class="ml-auto flex items-center">
-                            <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
-                                <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                            <div v-if="!session.isLoggedIn">
+                                <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                                    <a href="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                                    <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
+                                    <a href="/login#signup" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                                </div>
+
+                            </div>
+                            <div v-else>
+                                <Dropdown
+                                    :options="[
+                                        {
+                                            label: 'My Wishlist',
+                                            onClick: () => {},
+                                        },
+                                        {
+                                            label: 'My Orders',
+                                            onClick: () => {},
+                                        },
+                                        {
+                                            label: 'My Profile',
+                                            onClick: () => {},
+                                        },
+                                        {
+                                            label: 'Logout',
+                                            onClick: () => logout.fetch(),
+                                        },
+                                    ]"
+                                    >
+                                    <Avatar shape="circle" :image="userInfo.image" size="xl" :label="userInfo.full_name" style="cursor: pointer;"/>
+                                </Dropdown>
                             </div>
 
                             <!-- TODO: Make it as a input text in the navebar itself -->
@@ -99,13 +126,15 @@
                             </div>
 
                             <!-- Cart -->
-                            <div class="ml-4 flow-root lg:ml-6">
-                                <button @click="openCart" class="group -m-2 flex items-center p-2">
-                                    <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                        aria-hidden="true" />
-                                    <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                    <span class="sr-only">items in cart, view bag</span>
-                                </button>
+                            <div v-if="session.isLoggedIn">
+                                <div class="ml-4 flow-root lg:ml-6">
+                                    <button @click="openCart" class="group -m-2 flex items-center p-2">
+                                        <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true" />
+                                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                        <span class="sr-only">items in cart, view bag</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -119,6 +148,7 @@
   
 <script setup>
 import { ref, onMounted } from 'vue';
+import { Avatar, Dropdown } from 'frappe-ui';
 import { useRouter } from 'vue-router';
 import {
     Popover,
@@ -131,6 +161,7 @@ import { eventBus } from '../eventBus';
 import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
 import CategoryMenu from '../components/CategoryMenu.vue';
+import { sessionStore } from '@/services/session'
 
 const navigation = {
     categories: [
@@ -419,7 +450,12 @@ const navigation = {
     ]
 }
 const showBanner = ref(true);
-
+const session = sessionStore();
+const { logout } = sessionStore();
+const userInfo = ref({
+    image: '',
+    full_name: ''
+})
 const closeBanner = () => {
   showBanner.value = false;
   sessionStorage.setItem('bannerClosed', 'true');
@@ -427,6 +463,13 @@ const closeBanner = () => {
 onMounted(() => {
   if (sessionStorage.getItem('bannerClosed') === 'true') {
     showBanner.value = false;
+  }
+  if (session.isLoggedIn){
+    let cookies = new URLSearchParams(document.cookie.split('; ').join('&'))
+    userInfo.value.image = cookies.get("user_image")
+    userInfo.value.full_name = cookies.get("full_name")
+    console.log("User logged in:", cookies.get("user_id"))
+    // TODO: fetch the cart values and set it in the internal services cart items
   }
 });
 const router = useRouter()
