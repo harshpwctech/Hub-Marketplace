@@ -1,12 +1,14 @@
 import { computed, ref } from 'vue';
 import { createResource} from "frappe-ui";
 
-const BASE_URI = "https://sit.mytra.money/api/method/hub_marketplace/";
-const GET_CATEGORIES_URI = BASE_URI + "get_categories"
-const GET_TOP_SELLERS_AND_ITEMS_URI = BASE_URI + "get_top_items_sellers"
-const GET_ITEMS_URI = BASE_URI + "get_items"
-const GET_ITEM_URI = BASE_URI + "get_item"
-const GET_SELLER_URI = BASE_URI + "get_seller"
+const BASE_URI = "https://sit.mytra.money/api/method/";
+const GET_CATEGORIES_URI = BASE_URI + "hub_marketplace/get_categories"
+const GET_TOP_SELLERS_AND_ITEMS_URI = BASE_URI + "hub_marketplace/get_top_items_sellers"
+const GET_ITEMS_URI = BASE_URI + "hub_marketplace/get_items"
+const GET_ITEM_URI = BASE_URI + "hub_marketplace/get_item"
+const GET_SELLER_URI = BASE_URI + "hub_marketplace/get_seller"
+const GET_REVIEWS_URI = BASE_URI + "hub_marketplace/get_reviews"
+const ADD_DOC_URI = BASE_URI + "frappe.client.insert"
 const hubCategories = ref([])
 
 export const internalServices = () => {
@@ -73,12 +75,31 @@ export const internalServices = () => {
         },
 
     });
+    const getReviews = createResource({
+        url: GET_REVIEWS_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
+    const addDoc = createResource({
+        url: ADD_DOC_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
+    
     return {
         fetchCategories,
         hubCategories,
         getTopSellersAndProducts,
         getItems,
         getItem,
-        getSeller
+        getSeller,
+        getReviews,
+        addDoc
     };
 };

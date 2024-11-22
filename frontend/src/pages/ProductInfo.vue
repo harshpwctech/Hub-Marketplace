@@ -2,8 +2,8 @@
     <NavBar />
     <ProductDetails :productName="productName"/>
     <section aria-labelledby="reviews-heading" class="mx-auto max-w-7xl overflow-hidden">
-        <h2 id="reviews-heading" class="text-lg font-medium text-gray-900 sm:px-6 lg:px-8">Recent reviews</h2>
-        <ProductReview />
+        <!-- <h2 id="reviews-heading" class="text-lg font-medium text-gray-900 sm:px-6 lg:px-8">Recent reviews</h2> -->
+        <ProductReview :productName="productName"/>
     </section>
     <section aria-labelledby="related-heading" class="mx-auto max-w-7xl overflow-hidden">
         <h2 id="related-heading" class="text-lg font-medium text-gray-900 sm:px-6 lg:px-8">Customers also purchased</h2>

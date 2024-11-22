@@ -1,6 +1,7 @@
 import './index.css'
 
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import router from './router'
 import App from './App.vue'
 import TwicPics from "@twicpics/components/vue3";
@@ -9,11 +10,14 @@ import { Button, setConfig, frappeRequest, resourcesPlugin } from 'frappe-ui'
 import './assets/global.css';
 import { internalServices } from '../src/services/internalServices'
 
+let pinia = createPinia()
+
 let app = createApp(App)
 
 setConfig('resourceFetcher', frappeRequest)
 
 app.use(router)
+app.use(pinia)
 app.use(resourcesPlugin)
 app.use(TwicPics, {
     domain: "https://hub-marketplace.twic.pics"

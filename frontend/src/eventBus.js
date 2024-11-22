@@ -3,5 +3,7 @@ import { reactive } from 'vue';
 export const eventBus = reactive({
   searchOpen: false,
   cartOpen: false,
-  menuOpen: false
+  menuOpen: false,
+  loginOpen: false,
+  registerOpen: false
 });
