@@ -1,13 +1,12 @@
 <template>
-    <Dialog v-model="eventBus.loginOpen" :options="{ size: 'md' }">
+    <Dialog v-model="eventBus.loginOpen" :options="{ size: 'md' }" :disableOutsideClickToClose="true" :initialFocus="emailInputRef" @close="closeDialog()">
         <template #body-title>
             <h3 class="text-lg font-medium text-gray-900">Login</h3>
         </template>
         <template #body-content>
             <div class="space-y-4">
-                <TextInput v-model="email" type="email" label="Email" size="sm" placeholder="Email" />
-                <TextInput v-model="password" type="password" label="Password" size="sm"
-                    placeholder="Password" />
+                <FormControl v-model="email" type="email" size="sm" placeholder="Email" ref="emailInputRef" />
+                <FormControl v-model="password" type="password" size="sm" placeholder="Password" />
                 <p v-if="errorMessage" class="text-sm text-red-500">{{ errorMessage }}</p>
             </div>
         </template>
@@ -20,11 +19,12 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Button, TextInput, Dialog } from 'frappe-ui';
-import { eventBus } from '../eventBus'
-import { sessionStore } from '@/services/session'
+import { Button, FormControl, Dialog } from 'frappe-ui';
+import { eventBus } from '../eventBus';
+import { sessionStore } from '@/services/session';
 
 // Reactive variables for login form
+const emailInputRef = ref(null);
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
@@ -34,10 +34,10 @@ const { login } = sessionStore();
 
 // Function to close the dialog
 const closeDialog = () => {
-    eventBus.loginOpen = false; // Close dialog by setting eventBus state
     email.value = '';
     password.value = '';
     errorMessage.value = '';
+    eventBus.loginOpen = false;
 };
 
 // Function to handle login

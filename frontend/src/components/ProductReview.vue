@@ -86,7 +86,7 @@
       </div>
     </div>
   </div>
-  <Dialog v-model="isDialogVisible" :options="{size: 'xl'}">
+  <Dialog v-model="isDialogVisible" :options="{size: 'xl'}" @close="closeDialog()">
     <template #body-title>
       <h3 class="text-lg font-medium text-gray-900">Write Your Review</h3>
     </template>
