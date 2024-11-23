@@ -59,10 +59,10 @@
                         <div v-if="!session.isLoggedIn">
                             <div class="space-y-6 border-t border-gray-200 px-4 py-20">
                                 <div class="flow-root">
-                                    <a href="/login" class="-m-2 block p-2 font-normal text-gray-900">Sign in</a>
+                                    <button @click="openLoginComponent" class="-m-2 block p-2 font-normal text-gray-900">Sign in</button>
                                 </div>
                                 <div class="flow-root">
-                                    <a href="/login#signup" class="-m-2 block p-2 font-normal text-gray-900">Create account</a>
+                                    <button @click="openRegisterComponent" class="-m-2 block p-2 font-normal text-gray-900">Create account</button>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +71,7 @@
             </div>
         </Dialog>
     </TransitionRoot>
+    <Login />
 </template>
 
 <script setup>
@@ -89,10 +90,20 @@ import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
 import { eventBus } from '../eventBus'
 import { internalServices } from '../services/internalServices'
 import { sessionStore } from '@/services/session'
+import Login from '../components/Login.vue';
 
 const router = useRouter()
 const session = sessionStore()
 const { hubCategories } = internalServices();
+
+const openLoginComponent = () => {
+    eventBus.menuOpen = false;
+    eventBus.loginOpen = true;
+};
+const openRegisterComponent = () => {
+    eventBus.menuOpen = false;
+    eventBus.registerOpen = true;
+};
 
 function navigateToProductList(categoryName, subCategoryName = null) {
     const query = {};

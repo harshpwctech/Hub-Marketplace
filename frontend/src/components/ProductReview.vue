@@ -183,6 +183,7 @@ const submitReview = async () => {
     const { user } = sessionStore();
     let data = {
       doctype: "Hub Item Review",
+      hub_item: props.productName,
       user: user,
       rating: userReviewRating.value,
       review: userReviewContent.value

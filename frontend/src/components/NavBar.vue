@@ -85,9 +85,9 @@
                         <div class="ml-auto flex items-center">
                             <div v-if="!session.isLoggedIn">
                                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="/login" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                                    <button @click="openLoginComponent" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</button>
                                     <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="/login#signup" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</a>
+                                    <button @click="openRegisterComponent" class="text-sm font-medium text-gray-700 hover:text-gray-800">Create account</button>
                                 </div>
 
                             </div>
@@ -143,6 +143,7 @@
         </header>
         <SearchComponent />
         <Cart />
+        <Login />
     </div>
 </template>
   
@@ -162,6 +163,7 @@ import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
 import CategoryMenu from '../components/CategoryMenu.vue';
 import { sessionStore } from '@/services/session'
+import Login from '../components/Login.vue';
 
 const navigation = {
     categories: [
@@ -481,6 +483,12 @@ const openCart = () => {
 };
 const openMenu = () => {
     eventBus.menuOpen = true;
+};
+const openLoginComponent = () => {
+    eventBus.loginOpen = true;
+};
+const openRegisterComponent = () => {
+    eventBus.registerOpen = true;
 };
 
 function navigateToProductList1(categoryName) {
