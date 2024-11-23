@@ -182,13 +182,13 @@ const submitReview = async () => {
     // Submit the review (implement the API call)
     const { user } = sessionStore();
     let data = {
-      doctype: "Hub Item Review",
-      hub_item: props.productName,
-      user: user,
-      rating: userReviewRating.value,
-      review: userReviewContent.value
+      "doctype": "Hub Item Review",
+      "hub_item": props.productName,
+      "user": user,
+      "rating": userReviewRating.value,
+      "review": userReviewContent.value
     }
-    await useInternalServices.addDoc.fetch(data);
+    await useInternalServices.addDoc.fetch({doc: data});
     alert('Review submitted successfully!');
     hasUserReview.value = true
     closeDialog();
