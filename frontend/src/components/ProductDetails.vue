@@ -359,7 +359,7 @@ const fetchWishlistStatus = async () => {
             }
             const response = await useInternalServices.inWishlist.fetch(data);
             // Update the state based on API response
-            inWishList.value = response.message;
+            inWishList.value = response;
         } catch (error) {
             console.error('Failed to fetch wishlist status:', error);
         }
@@ -394,8 +394,10 @@ const toggleWishlist = async () => {
         }
         if (!inWishList.value) {
             await useInternalServices.addToWishlist.fetch(data);
+            inWishList.value = true;
         } else {
             await useInternalServices.removeFromWishlist.fetch(data);
+            inWishList.value = false;
         }
     } catch (error) {
         console.error('Failed to modify wishlist:', error);
