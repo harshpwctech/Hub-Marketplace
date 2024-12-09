@@ -105,7 +105,7 @@ export const internalServices = () => {
         },
     });
     const saveDoc = createResource({
-        url: SAVE_DOC_URI_DOC_URI,
+        url: SAVE_DOC_URI,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
