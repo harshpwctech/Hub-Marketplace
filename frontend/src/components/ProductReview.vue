@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { Dialog, Textarea, Rating } from 'frappe-ui';
 import { StarIcon } from '@heroicons/vue/20/solid';
 import { internalServices } from '../services/internalServices'
@@ -134,13 +134,14 @@ const isLoading = ref(true);
 const hasReviews = ref(false);
 const hasFeaturedReviews = ref(false);
 const hasUserReview = ref(false);
+const userReviewDoc = ref(false);
 const userReviewContent = ref('');
 const userReviewRating = ref(0);
 const reviews = ref({});
 const useInternalServices = internalServices();
 const session = sessionStore();
 
-const fetchData = async () => {
+const fetchReviews = async () => {
   try {
     const itemReviews = await useInternalServices.getReviews.fetch({
       "item_name": props.productName
@@ -153,6 +154,33 @@ const fetchData = async () => {
     console.error(`Failed to fetch reviews:`, error);
   }
 };
+
+const fetchUserReview = async () => {
+  if (!session.isLoggedIn) {
+    return
+  }
+  try {
+    const { user } = sessionStore();
+    let data = {
+      "doctype": "Hub Item Review",
+      "filters": {
+        "hub_item": props.productName,
+        "user": user,
+      }
+    }
+    const userReview = await useInternalServices.getDoc.fetch(data);
+    if (userReview) {
+      hasUserReview.value = true;
+      userReviewDoc.value = userReview.name;
+      userReviewContent.value = userReview.review;
+      userReviewRating.value = userReview.rating
+
+    }
+  } catch (error) {
+    return
+  }
+
+}
 
 const handleWriteReview = () => {
   if (!session.isLoggedIn) {
@@ -178,7 +206,6 @@ const submitReview = async () => {
   }
 
   try {
-    // Submit the review (implement the API call)
     const { user } = sessionStore();
     let data = {
       "doctype": "Hub Item Review",
@@ -187,9 +214,14 @@ const submitReview = async () => {
       "rating": userReviewRating.value,
       "review": userReviewContent.value
     }
-    await useInternalServices.addDoc.fetch({doc: data});
+    if (!hasUserReview.value){
+      await useInternalServices.addDoc.fetch({doc: data});
+      hasUserReview.value = true
+    } else {
+      data["name"] = userReviewDoc.value
+      await useInternalServices.saveDoc.fetch({doc: data});
+    }
     alert('Review submitted successfully!');
-    hasUserReview.value = true
     closeDialog();
   } catch (error) {
     console.error('Failed to submit review:', error);
@@ -197,7 +229,18 @@ const submitReview = async () => {
   }
 };
 onMounted(() => {
-  fetchData()
+  fetchReviews();
+  fetchUserReview();
 });
+watch(
+    () => session.isLoggedIn,
+    (newValue) => {
+        if (newValue) {
+          fetchUserReview();
+        } else {
+            hasUserReview.value = false;
+        }
+    }
+);
 
 </script>
