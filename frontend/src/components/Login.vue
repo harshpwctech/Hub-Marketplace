@@ -5,8 +5,8 @@
         </template>
         <template #body-content>
             <div class="space-y-4">
-                <FormControl v-model="email" type="email" size="sm" placeholder="Email" ref="emailInputRef" />
-                <FormControl v-model="password" type="password" size="sm" placeholder="Password" />
+                <TextInput :modelValue="email" type="data" size="sm" placeholder="Email" ref="emailInputRef" />
+                <TextInput :modelValue="password" type="password" size="sm" placeholder="Password" />
                 <p v-if="errorMessage" class="text-sm text-red-500">{{ errorMessage }}</p>
             </div>
         </template>
@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { Button, FormControl, Dialog } from 'frappe-ui';
+import { Button, TextInput, Dialog } from 'frappe-ui';
 import { eventBus } from '../eventBus';
 import { sessionStore } from '@/services/session';
 

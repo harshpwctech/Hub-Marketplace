@@ -8,6 +8,9 @@ const GET_ITEMS_URI = BASE_URI + "hub_marketplace/get_items"
 const GET_ITEM_URI = BASE_URI + "hub_marketplace/get_item"
 const GET_SELLER_URI = BASE_URI + "hub_marketplace/get_seller"
 const GET_REVIEWS_URI = BASE_URI + "hub_marketplace/get_reviews"
+const IN_WISHLIST_URI = BASE_URI + "hub_marketplace/in_wishlist"
+const ADD_TO_WISHLIST_URI = BASE_URI + "hub_marketplace/add_to_wishlist"
+const REMOVE_FROM_WISHLIST_URI = BASE_URI + "hub_marketplace/remove_from_wishlist"
 const ADD_DOC_URI = BASE_URI + "frappe.client.insert"
 const hubCategories = ref([])
 
@@ -91,6 +94,30 @@ export const internalServices = () => {
         auto: false
         },
     });
+    const inWishlist = createResource({
+        url: IN_WISHLIST_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
+    const addToWishlist = createResource({
+        url: ADD_TO_WISHLIST_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
+    const removeFromWishlist = createResource({
+        url: REMOVE_FROM_WISHLIST_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
     
     return {
         fetchCategories,
@@ -100,6 +127,9 @@ export const internalServices = () => {
         getItem,
         getSeller,
         getReviews,
-        addDoc
+        addDoc,
+        inWishlist,
+        addToWishlist,
+        removeFromWishlist
     };
 };

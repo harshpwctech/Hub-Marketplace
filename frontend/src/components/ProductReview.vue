@@ -156,7 +156,6 @@ const fetchData = async () => {
 
 const handleWriteReview = () => {
   if (!session.isLoggedIn) {
-    // alert('You must be logged in to write a review.');
     eventBus.loginOpen = true;
     return
   }

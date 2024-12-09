@@ -62,7 +62,7 @@
                         <div class="space-y-6 text-base text-gray-700" v-html="product.description" />
                     </div>
 
-                    <form class="mt-6">
+                    <div class="mt-6">
                         <div v-if="product.variants && product.variants.length > 0">
                             <!-- Colors -->
                             <div>
@@ -115,17 +115,19 @@
                         </div>
 
                         <div class="mt-10 flex">
-                            <button type="submit"
-                                class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
-                                :style="{ backgroundColor: 'var(--theme-color)' }">Get Quotation</button>
-
-                            <button type="button"
+                            <button @click="getQuote" type="button" class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full" :style="{ backgroundColor: 'var(--theme-color)' }">Contact Seller</button>
+                            <button @click="toggleWishlist" type="button"
                                 class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
-                                <HeartIcon class="h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                                <span class="sr-only">Add to wishlist</span>
+                                <component :is="inWishList ? FilledHeartIcon : HeartIcon"
+                                    :class="[
+                                        'h-6 w-6 flex-shrink-0',
+                                        inWishList ? 'text-red-500' : 'text-gray-400 hover:text-gray-500'
+                                    ]"
+                                    aria-hidden="true" />
+                                <span class="sr-only">{{ inWishList ? 'Remove from wishlist' : 'Add to wishlist' }}</span>
                             </button>
                         </div>
-                    </form>
+                    </div>
 
                     <!-- Seller Info -->
                     <div class="mt-10">
@@ -184,10 +186,40 @@
             </div>
         </div>
     </div>
+    <Dialog v-model="isDialogVisible" :options="{size: 'xl'}" @close="closeDialog()">
+        <template #body-title>
+        <h3 class="text-lg font-medium text-gray-900">Contact Seller and get the best quote</h3>
+        </template>
+        <template #body-content>
+        <div class="mb-8">
+            <FormControl
+            v-model="userMobile"
+            :type="'text'"
+            label="Mobile Number"
+            :rating_from="5" 
+            size="sm"
+            :disabled="true"
+            />
+        </div> 
+            <FormControl
+            v-model="userRemarks"
+            :type="'textarea'"
+            size="md"
+            placeholder="Any further information.."
+            class="w-full"
+            :rows="6"
+            />
+        </template>
+        <template #actions>
+        <Button @click="submitGetQuote" variant="solid">Get Quote</Button>
+        <Button class="ml-2" @click="closeDialog" variant="outline">Cancel</Button>
+        </template>
+    </Dialog>
+    <Login />
 </template>
   
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import {
     Disclosure,
     DisclosureButton,
@@ -202,8 +234,13 @@ import {
 } from '@headlessui/vue'
 import { StarIcon } from '@heroicons/vue/20/solid'
 import { HeartIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'
+import { HeartIcon as FilledHeartIcon} from '@heroicons/vue/24/solid'
 import { internalServices } from '../services/internalServices'
 import { useRouter } from 'vue-router';
+import { sessionStore } from '@/services/session'
+import { eventBus } from '../eventBus'
+import Login from '../components/Login.vue';
+import { Dialog, FormControl } from 'frappe-ui';
 
 const props = defineProps({
     productName: {
@@ -215,9 +252,25 @@ const isLoading = ref(true)
 const product = ref({})
 const seller = ref({})
 const useInternalServices = internalServices();
+const session = sessionStore();
+const inWishList = ref(false)
+const isDialogVisible = ref(false)
+const userMobile = ref('');
+const userRemarks = ref('');
 onMounted(() => {
-    fetchData()
+    fetchData();
+    fetchWishlistStatus();
 })
+watch(
+    () => session.isLoggedIn,
+    (newValue) => {
+        if (newValue) {
+            fetchWishlistStatus();
+        } else {
+            isInWishlist.value = false; // Clear wishlist state when logged out
+        }
+    }
+);
 
 const fetchData = async () => {
     try {
@@ -296,10 +349,61 @@ function createProductData(itemData) {
 
     return product.value = data
 };
+const fetchWishlistStatus = async () => {
+    if (session.isLoggedIn) {
+        try {
+            const { user } = sessionStore();
+            let data = {
+                "item_name": props.productName,
+                "user": user,
+            }
+            const response = await internalServices.inWishlist.fetch(data);
+            // Update the state based on API response
+            inWishList.value = response.message;
+        } catch (error) {
+            console.error('Failed to fetch wishlist status:', error);
+        }
+    }
+};
 const router = useRouter();
 function navigateToSellerInfo(sellerInfo) {
     const seller = sellerInfo.name
     router.push({ name: 'SellerInfo', params: { seller } });
+};
+const getQuote = () => {
+    if (session.isLoggedIn) {
+        eventBus.loginOpen = true;
+        return
+    }
+    isDialogVisible.value = true;
+
+};
+const submitGetQuote = () => {
+
+};
+const toggleWishlist = async () => {
+    if (!session.isLoggedIn) {
+        eventBus.loginOpen = true;
+        return
+    }
+    try {
+        const { user } = sessionStore();
+        let data = {
+            "item_name": props.productName,
+            "user": user,
+        }
+        if (!inWishList.value) {
+            await useInternalServices.addToWishlist.fetch(data);
+        } else {
+            await useInternalServices.removeFromWishlist.fetch(data);
+        }
+    } catch (error) {
+        console.error('Failed to modify wishlist:', error);
+    }
+};
+
+const closeDialog = () => {
+  isDialogVisible.value = false;
 };
 
 // const product = {
