@@ -267,7 +267,7 @@ watch(
         if (newValue) {
             fetchWishlistStatus();
         } else {
-            isInWishlist.value = false; // Clear wishlist state when logged out
+            inWishList.value = false;
         }
     }
 );
@@ -357,7 +357,7 @@ const fetchWishlistStatus = async () => {
                 "item_name": props.productName,
                 "user": user,
             }
-            const response = await internalServices.inWishlist.fetch(data);
+            const response = await useInternalServices.inWishlist.fetch(data);
             // Update the state based on API response
             inWishList.value = response.message;
         } catch (error) {
