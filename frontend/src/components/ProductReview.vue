@@ -116,7 +116,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { Dialog, Textarea, Rating } from 'frappe-ui';
+import { Dialog, Textarea, Rating, createDocumentResource } from 'frappe-ui';
 import { StarIcon } from '@heroicons/vue/20/solid';
 import { internalServices } from '../services/internalServices'
 import { sessionStore } from '@/services/session'
@@ -218,7 +218,7 @@ const submitReview = async () => {
       await useInternalServices.addDoc.fetch({doc: data});
       hasUserReview.value = true
     } else {
-      let userReview = useInternalServices.documentResource({"doctype": "Hub Item Review", "name": userReviewDoc.value})
+      let userReview = createDocumentResource({"doctype": "Hub Item Review", "name": userReviewDoc.value})
       await userReview.update({"rating": userReviewRating.value, "review": userReviewContent.value})
     }
     alert('Review submitted successfully!');
