@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue';
-import { createResource} from "frappe-ui";
+import { createResource, createDocumentResource} from "frappe-ui";
 
 const BASE_URI = "https://sit.mytra.money/api/method/";
 const GET_CATEGORIES_URI = BASE_URI + "hub_marketplace/get_categories"
@@ -104,14 +104,7 @@ export const internalServices = () => {
         auto: false
         },
     });
-    const saveDoc = createResource({
-        url: SAVE_DOC_URI,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        auto: false
-        },
-    });
+    
     const inWishlist = createResource({
         url: IN_WISHLIST_URI,
         method: 'POST',
@@ -137,6 +130,8 @@ export const internalServices = () => {
         },
     });
     
+    const documentResource = createDocumentResource();
+    
     return {
         fetchCategories,
         hubCategories,
@@ -147,9 +142,9 @@ export const internalServices = () => {
         getReviews,
         addDoc,
         getDoc,
-        saveDoc,
         inWishlist,
         addToWishlist,
-        removeFromWishlist
+        removeFromWishlist,
+        documentResource,
     };
 };

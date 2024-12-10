@@ -207,19 +207,19 @@ const submitReview = async () => {
 
   try {
     const { user } = sessionStore();
-    let data = {
-      "doctype": "Hub Item Review",
-      "hub_item": props.productName,
-      "user": user,
-      "rating": userReviewRating.value,
-      "review": userReviewContent.value
-    }
     if (!hasUserReview.value){
+      let data = {
+        "doctype": "Hub Item Review",
+        "hub_item": props.productName,
+        "user": user,
+        "rating": userReviewRating.value,
+        "review": userReviewContent.value
+      }
       await useInternalServices.addDoc.fetch({doc: data});
       hasUserReview.value = true
     } else {
-      data["name"] = userReviewDoc.value
-      await useInternalServices.saveDoc.fetch({doc: data});
+      let userReview = useInternalServices.documentResource({"doctype": "Hub Item Review", "name": userReviewDoc.value})
+      await userReview.update({"rating": userReviewRating.value, "review": userReviewContent.value})
     }
     alert('Review submitted successfully!');
     closeDialog();
