@@ -70,8 +70,9 @@
 
                                 <fieldset aria-label="Choose a color" class="mt-2">
                                     <RadioGroup v-model="selectedColor" class="flex items-center space-x-3">
-                                        <RadioGroupOption as="template" v-for="color in product.colors" :key="color.name"
-                                            :value="color" :aria-label="color.name" v-slot="{ active, checked }">
+                                        <RadioGroupOption as="template" v-for="color in product.colors"
+                                            :key="color.name" :value="color" :aria-label="color.name"
+                                            v-slot="{ active, checked }">
                                             <div
                                                 :class="[color.selectedColor, active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', 'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none']">
                                                 <span aria-hidden="true"
@@ -115,16 +116,17 @@
                         </div>
 
                         <div class="mt-10 flex">
-                            <button @click="getQuote" type="button" class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full" :style="{ backgroundColor: 'var(--theme-color)' }">Contact Seller</button>
+                            <button @click="getQuote" type="button"
+                                class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
+                                :style="{ backgroundColor: 'var(--theme-color)' }">Contact Seller</button>
                             <button @click="toggleWishlist" type="button"
                                 class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
-                                <component :is="inWishList ? FilledHeartIcon : HeartIcon"
-                                    :class="[
+                                <component :is="inWishList ? FilledHeartIcon : HeartIcon" :class="[
                                         'h-6 w-6 flex-shrink-0',
                                         inWishList ? 'text-red-500' : 'text-gray-400 hover:text-gray-500'
-                                    ]"
-                                    aria-hidden="true" />
-                                <span class="sr-only">{{ inWishList ? 'Remove from wishlist' : 'Add to wishlist' }}</span>
+                                    ]" aria-hidden="true" />
+                                <span class="sr-only">{{ inWishList ? 'Remove from wishlist' : 'Add to wishlist'
+                                    }}</span>
                             </button>
                         </div>
                     </div>
@@ -163,7 +165,7 @@
                                         class="group relative flex w-full items-center justify-between py-6 text-left">
                                         <span
                                             :class="[open ? 'text-indigo-600' : 'text-gray-900', 'text-sm font-medium']">{{
-                                                detail.name }}</span>
+                                            detail.name }}</span>
                                         <span class="ml-6 flex items-center">
                                             <PlusIcon v-if="!open"
                                                 class="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
@@ -186,33 +188,25 @@
             </div>
         </div>
     </div>
-    <Dialog v-model="isDialogVisible" :options="{size: 'xl'}" @close="closeDialog()">
+    <Dialog v-model="isDialogVisible" :options="{ size: 'xl' }" @close="closeDialog()">
         <template #body-title>
-        <h3 class="text-lg font-medium text-gray-900">Contact Seller and get the best quote</h3>
+            <h3 class="text-lg font-medium text-gray-900">Contact sellers and get the best deal</h3>
         </template>
         <template #body-content>
-        <div class="mb-8">
-            <FormControl
-            v-model="userMobile"
-            :type="'text'"
-            label="Mobile Number"
-            :rating_from="5" 
-            size="sm"
-            :disabled="true"
-            />
-        </div> 
-            <FormControl
-            v-model="userRemarks"
-            :type="'textarea'"
-            size="md"
-            placeholder="Any further information.."
-            class="w-full"
-            :rows="6"
-            />
+            <div class="mb-8">
+                <FormControl v-model="userMobile" :type="'text'" label="Mobile Number" :rating_from="5" size="sm"
+                    :disabled="true" />
+            </div>
+            <div class="mb-4">
+                <FormControl v-model="userRemarks" :type="'textarea'" size="md" placeholder="Any further information.."
+                    class="w-full" :rows="6" />
+            </div>
+            <FormControl v-model="contactSellers" :type="'checkbox'" size="sm" placeholder="Contact Sellers"
+                label="Share contact with other sellers selling similar product to get the best deal." />
         </template>
         <template #actions>
-        <Button @click="submitGetQuote" variant="solid">Get Quote</Button>
-        <Button class="ml-2" @click="closeDialog" variant="outline">Cancel</Button>
+            <Button @click="submitGetQuote" variant="solid">Get Quote</Button>
+            <Button class="ml-2" @click="closeDialog" variant="outline">Cancel</Button>
         </template>
     </Dialog>
     <Login />
@@ -257,10 +251,13 @@ const inWishList = ref(false)
 const isDialogVisible = ref(false)
 const userMobile = ref('');
 const userRemarks = ref('');
+const contactSellers = ref(true);
+
 onMounted(() => {
     fetchData();
     fetchWishlistStatus();
-})
+});
+
 watch(
     () => session.isLoggedIn,
     (newValue) => {
@@ -371,14 +368,32 @@ function navigateToSellerInfo(sellerInfo) {
     router.push({ name: 'SellerInfo', params: { seller } });
 };
 const getQuote = () => {
-    if (session.isLoggedIn) {
+    if (!session.isLoggedIn) {
         eventBus.loginOpen = true;
         return
     }
     isDialogVisible.value = true;
 
 };
-const submitGetQuote = () => {
+const submitGetQuote = async () => {
+    try {
+        const { user } = sessionStore();
+        let data = {
+            "doctype": "Hub Lead",
+            "item": props.productName,
+            "buyer": user,
+            "default_seller": seller.value.name,
+            "remarks": userRemarks.value,
+            "contact_sellers": contactSellers.value
+        }
+        await useInternalServices.addDoc.fetch({ doc: data });
+        alert('Lead created successfully!');
+        closeDialog();
+        userRemarks.value = ''
+    } catch (error) {
+        console.error('Failed to create lead:', error);
+        alert('There was an error creating lead. Please try again.');
+    }
 
 };
 const toggleWishlist = async () => {
