@@ -218,8 +218,15 @@ const submitReview = async () => {
       await useInternalServices.addDoc.fetch({doc: data});
       hasUserReview.value = true
     } else {
-      let userReview = createDocumentResource({"doctype": "Hub Item Review", "name": userReviewDoc.value})
-      await userReview.update({"rating": userReviewRating.value, "review": userReviewContent.value})
+      let data = {
+        "doctype": "Hub Item Review",
+        "name": userReviewDoc.value,
+        "fieldname": {
+          "rating": userReviewRating.value,
+          "review": userReviewContent.value
+        }
+      }
+      await useInternalServices.saveDoc.fetch(data);
     }
     alert('Review submitted successfully!');
     closeDialog();

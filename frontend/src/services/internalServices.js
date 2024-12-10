@@ -13,7 +13,7 @@ const ADD_TO_WISHLIST_URI = BASE_URI + "hub_marketplace/add_to_wishlist"
 const REMOVE_FROM_WISHLIST_URI = BASE_URI + "hub_marketplace/remove_from_wishlist"
 const ADD_DOC_URI = BASE_URI + "frappe.client.insert"
 const GET_DOC_URI = BASE_URI + "frappe.client.get"
-const SAVE_DOC_URI = BASE_URI + "frappe.client.save"
+const SAVE_DOC_URI = BASE_URI + "frappe.client.set_value"
 const hubCategories = ref([])
 
 export const internalServices = () => {
@@ -104,7 +104,14 @@ export const internalServices = () => {
         auto: false
         },
     });
-    
+    const saveDoc = createResource({
+        url: SAVE_DOC_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
     const inWishlist = createResource({
         url: IN_WISHLIST_URI,
         method: 'POST',
@@ -140,6 +147,7 @@ export const internalServices = () => {
         getReviews,
         addDoc,
         getDoc,
+        saveDoc,
         inWishlist,
         addToWishlist,
         removeFromWishlist
