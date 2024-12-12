@@ -1,46 +1,84 @@
 <template>
-    <TransitionRoot as="template" :show="eventBus.searchOpen" @close="eventBus.searchOpen = false">
-        <Dialog class="relative z-40" @close="eventBus.searchOpen = false">
-            <!-- Background Overlay -->
-            <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
-                enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
-                leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-25" />
-            </TransitionChild>
-
-            <!-- Form Control Panel -->
-            <div class="fixed inset-0 flex-col items-center p-32">
-                <div class="relative rounded-lg">
-                    <TransitionChild as="template" enter="transition ease-in-out duration-300 transform"
-                        enter-from="translate-y-full" enter-to="translate-y-0"
-                        leave="transition ease-in-out duration-300 transform" leave-from="translate-y-0"
-                        leave-to="translate-y-full">
-                        <DialogPanel
-                            class="relative w-full max-w-lg flex-col bg-white shadow-xl z-50">
-                            <!-- Search Form -->
-                            <TextInput v-model="searchQuery" type="text" size="xl" placeholder="What are you looking for" >
-                                <template #suffix>
-                                    <FeatherIcon class="w-4" name="search" />
-                                </template>
-                            </TextInput>
-                        </DialogPanel>
-                    </TransitionChild>
-                </div>
+    <Dialog :options="{ size: 'xl', position: 'top' }" :model-value="modelValue"
+        @update:model-value="emit('update:modelValue', !modelValue)" @after-leave="articles.data = null">
+        <template #body>
+            <div>
+                <Combobox nullable @update:model-value="onSelection">
+                    <div class="relative">
+                        <div class="pl-4.5 absolute inset-y-0 left-0 flex items-center">
+                            <FeatherIcon name="search" class="w-4" />
+                        </div>
+                        <ComboboxInput placeholder="Search"
+                            class="pl-11.5 pr-4.5 w-full border-none bg-transparent py-3 text-base text-gray-800 placeholder:text-gray-500 focus:ring-0"
+                            autocomplete="off" @input="onInput" />
+                    </div>
+                    <ComboboxOptions class="max-h-96 overflow-auto border-t border-gray-100 text-base" :class="{
+                        'py-2.5': !!articles.data,
+                    }" static hold>
+                        <ComboboxOption v-for="article in articles.data" :key="article.name" v-slot="{ active }"
+                            :value="article" class="px-2.5">
+                            <div class="flex w-full min-w-0 items-center gap-1 rounded p-2 text-base font-medium text-gray-800"
+                                :class="{ 'bg-gray-200': active }">
+                                <span class="overflow-hidden text-ellipsis whitespace-nowrap text-gray-700">
+                                    {{ article.category_name }}
+                                </span>
+                                <span class="text-gray-700"> / </span>
+                                <span class="overflow-hidden text-ellipsis whitespace-nowrap">
+                                    {{ article.title }}
+                                </span>
+                            </div>
+                        </ComboboxOption>
+                    </ComboboxOptions>
+                </Combobox>
             </div>
-        </Dialog>
-    </TransitionRoot>
+        </template>
+    </Dialog>
 </template>
-  
-<script setup>
-import { ref, watch } from 'vue';
-import { TextInput, FeatherIcon } from 'frappe-ui';
-import { Dialog, DialogPanel, TransitionRoot, TransitionChild } from '@headlessui/vue';
-import { eventBus } from '../eventBus'
 
-const searchQuery = ref('');
-watch(() => eventBus.searchOpen, (newValue) => {
-    console.log('Search open:', newValue);
+<script setup>
+import { ref } from 'vue';
+import { createListResource, Dialog, FeatherIcon } from "frappe-ui";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOptions,
+  ComboboxOption,
+} from "@headlessui/vue";
+
+const props = defineProps({
+  modelValue: Boolean,
 });
 
+const emit = defineEmits(["update:modelValue"]);
+const articles = createListResource({
+    doctype: "HD Article",
+    fields: ["name", "title", "category.category_name"],
+    filters: {
+        status: "Published",
+    },
+    pageLength: 99999,
+    debounce: 500,
+    auto: false,
+    transform: (data) => {
+        return data;
+    },
+});
+function onInput(e) {
+
+    console.log("----------", e.target.value)
+//   articles.update({
+//     filters: {
+//       title: ["like", `%${e.target.value}%`],
+//     },
+//   });
+//   articles.reload();
+}
+
+function onSelection(val) {
+  if (val) {
+    emit("update:modelValue", !modelValue.value);
+    router.push(val.route);
+  }
+}
+
 </script>
-  

@@ -21,17 +21,19 @@
                         <CategoryMenu />
 
                         <!-- Logo -->
-                        <div class="ml-4 flex">
-                            <a href="/hub_marketplace/">
+                        <div class="ml-2">
+                            <a class="flex" href="/hub_marketplace/">
                                 <span class="sr-only">Hub-Marketplace</span>
-                                <img class="h-8 w-auto" src="https://mytra.money/files/final_logo_bg_black_1.png"
-                                    alt="mytra" />
+                                <BuildingStorefrontIcon class="h-8 w-8 text-gray-800"
+                                    alt="hub" />
+                                <h1 class="p-2 text-xl text-gray-800 font-mono font-medium tracking-widest">hubmarket.place</h1>
                             </a>
                         </div>
+                        
 
                         <!-- TODO: to be used with search -->
                         <!-- Flyout menus -->
-                        <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
+                        <!-- <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
                             <div class="flex h-full space-x-8">
                                 <Popover v-for="category in navigation.categories" :key="category.name" class="flex"
                                     v-slot="{ open }">
@@ -46,7 +48,7 @@
                                         leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100"
                                         leave-to-class="opacity-0">
                                         <PopoverPanel class="absolute inset-x-0 top-full text-sm text-gray-500 z-50">
-                                            <!-- Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow -->
+                                            Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow
                                             <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
                                             <div class="relative bg-white">
@@ -80,7 +82,7 @@
                                     class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{
                                         page.name }}</a>
                             </div>
-                        </PopoverGroup>
+                        </PopoverGroup> -->
 
                         <div class="ml-auto flex items-center">
                             <div v-if="!session.isLoggedIn">
@@ -119,7 +121,7 @@
                             <!-- TODO: Make it as a input text in the navebar itself -->
                             <!-- Search -->
                             <div class="flex lg:ml-6">
-                                <button @click="openSearchComponent" class="p-2 text-gray-400 hover:text-gray-500">
+                                <button @click="showSearch = !showSearch" class="p-2 text-gray-400 hover:text-gray-500">
                                     <span class="sr-only">Search</span>
                                     <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
                                 </button>
@@ -141,7 +143,7 @@
                 </div>
             </nav>
         </header>
-        <SearchComponent />
+        <SearchComponent v-model="showSearch"/>
         <Cart />
         <Login />
     </div>
@@ -158,6 +160,7 @@ import {
     PopoverPanel,
 } from '@headlessui/vue';
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline';
+import { BuildingStorefrontIcon } from '@heroicons/vue/24/solid';
 import { eventBus } from '../eventBus';
 import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
@@ -452,6 +455,7 @@ const navigation = {
     ]
 }
 const showBanner = ref(true);
+const showSearch = ref(false);
 const session = sessionStore();
 const { logout } = sessionStore();
 const userInfo = ref({
@@ -475,9 +479,6 @@ onMounted(() => {
   }
 });
 const router = useRouter()
-const openSearchComponent = () => {
-    eventBus.searchOpen = true;
-};
 const openCart = () => {
     eventBus.cartOpen = true;
 };

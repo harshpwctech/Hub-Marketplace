@@ -9,6 +9,7 @@ const GET_ITEM_URI = BASE_URI + "hub_marketplace/get_item"
 const GET_SELLER_URI = BASE_URI + "hub_marketplace/get_seller"
 const GET_REVIEWS_URI = BASE_URI + "hub_marketplace/get_reviews"
 const IN_WISHLIST_URI = BASE_URI + "hub_marketplace/in_wishlist"
+const OAUTH_PROVIDERS_URI = BASE_URI + "hub_marketplace/oauth_providers"
 const ADD_TO_WISHLIST_URI = BASE_URI + "hub_marketplace/add_to_wishlist"
 const REMOVE_FROM_WISHLIST_URI = BASE_URI + "hub_marketplace/remove_from_wishlist"
 const ADD_DOC_URI = BASE_URI + "frappe.client.insert"
@@ -120,6 +121,14 @@ export const internalServices = () => {
         auto: false
         },
     });
+    const oAuthProviders = createResource({
+        url: OAUTH_PROVIDERS_URI,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        auto: false
+        },
+    });
     const addToWishlist = createResource({
         url: ADD_TO_WISHLIST_URI,
         method: 'POST',
@@ -150,6 +159,7 @@ export const internalServices = () => {
         saveDoc,
         inWishlist,
         addToWishlist,
-        removeFromWishlist
+        removeFromWishlist,
+        oAuthProviders
     };
 };
