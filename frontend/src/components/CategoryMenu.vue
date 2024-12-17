@@ -71,7 +71,6 @@
             </div>
         </Dialog>
     </TransitionRoot>
-    <Login />
 </template>
 
 <script setup>
@@ -90,7 +89,6 @@ import { MinusIcon, PlusIcon } from '@heroicons/vue/20/solid'
 import { eventBus } from '../eventBus'
 import { internalServices } from '../services/internalServices'
 import { sessionStore } from '@/services/session'
-import Login from '../components/Login.vue';
 
 const router = useRouter()
 const session = sessionStore()
@@ -98,7 +96,9 @@ const { hubCategories } = internalServices();
 
 const openLoginComponent = () => {
     eventBus.menuOpen = false;
-    eventBus.loginOpen = true;
+    const currentUrl = window.location.pathname + window.location.search;
+    window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
+    return;
 };
 const openRegisterComponent = () => {
     eventBus.menuOpen = false;

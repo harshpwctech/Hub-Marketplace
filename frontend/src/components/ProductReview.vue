@@ -111,17 +111,14 @@
       <Button class="ml-2" @click="closeDialog" variant="outline">Cancel</Button>
     </template>
   </Dialog>
-  <Login />
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { Dialog, Textarea, Rating, createDocumentResource } from 'frappe-ui';
+import { Dialog, Textarea, Rating } from 'frappe-ui';
 import { StarIcon } from '@heroicons/vue/20/solid';
 import { internalServices } from '../services/internalServices'
 import { sessionStore } from '@/services/session'
-import { eventBus } from '../eventBus'
-import Login from '../components/Login.vue';
 
 const props = defineProps({
   productName: {
@@ -184,8 +181,9 @@ const fetchUserReview = async () => {
 
 const handleWriteReview = () => {
   if (!session.isLoggedIn) {
-    eventBus.loginOpen = true;
-    return
+    const currentUrl = window.location.pathname + window.location.search;
+    window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
+    return;
   }
   if (!hasUserReview.value) {
     userReviewContent.value = '';

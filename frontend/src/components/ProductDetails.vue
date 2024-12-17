@@ -209,7 +209,6 @@
             <Button class="ml-2" @click="closeDialog" variant="outline">Cancel</Button>
         </template>
     </Dialog>
-    <Login />
 </template>
   
 <script setup>
@@ -232,8 +231,6 @@ import { HeartIcon as FilledHeartIcon} from '@heroicons/vue/24/solid'
 import { internalServices } from '../services/internalServices'
 import { useRouter } from 'vue-router';
 import { sessionStore } from '@/services/session'
-import { eventBus } from '../eventBus'
-import Login from '../components/Login.vue';
 import { Dialog, FormControl } from 'frappe-ui';
 
 const props = defineProps({
@@ -369,7 +366,8 @@ function navigateToSellerInfo(sellerInfo) {
 };
 const getQuote = () => {
     if (!session.isLoggedIn) {
-        eventBus.loginOpen = true;
+        const currentUrl = window.location.pathname + window.location.search;
+        window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
         return
     }
     isDialogVisible.value = true;
@@ -398,7 +396,8 @@ const submitGetQuote = async () => {
 };
 const toggleWishlist = async () => {
     if (!session.isLoggedIn) {
-        eventBus.loginOpen = true;
+        const currentUrl = window.location.pathname + window.location.search;
+        window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
         return
     }
     try {

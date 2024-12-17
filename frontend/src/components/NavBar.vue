@@ -145,7 +145,6 @@
         </header>
         <SearchComponent v-model="showSearch"/>
         <Cart />
-        <Login />
     </div>
 </template>
   
@@ -165,8 +164,7 @@ import { eventBus } from '../eventBus';
 import SearchComponent from '../components/SearchComponent.vue';
 import Cart from '../components/Cart.vue';
 import CategoryMenu from '../components/CategoryMenu.vue';
-import { sessionStore } from '@/services/session'
-import Login from '../components/Login.vue';
+import { sessionStore } from '@/services/session';
 
 const navigation = {
     categories: [
@@ -486,10 +484,12 @@ const openMenu = () => {
     eventBus.menuOpen = true;
 };
 const openLoginComponent = () => {
-    eventBus.loginOpen = true;
+    const currentUrl = window.location.pathname + window.location.search;
+    window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
 };
 const openRegisterComponent = () => {
-    eventBus.registerOpen = true;
+    const currentUrl = window.location.pathname + window.location.search;
+    window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}#signup`;
 };
 
 function navigateToProductList1(categoryName) {
