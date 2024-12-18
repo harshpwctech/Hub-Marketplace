@@ -26,7 +26,7 @@
                                 <span class="sr-only">Hub-Marketplace</span>
                                 <BuildingStorefrontIcon class="h-8 w-8 text-gray-800"
                                     alt="hub" />
-                                <h1 class="p-2 text-xl text-gray-800 font-mono font-medium tracking-widest">hubmarket.place</h1>
+                                    <h1 class="hidden lg:block p-2 text-xl text-gray-800 font-mono font-medium tracking-widest">hubmarket.place</h1>
                             </a>
                         </div>
                         
@@ -85,6 +85,26 @@
                         </PopoverGroup> -->
 
                         <div class="ml-auto flex items-center">
+                            <!-- Search -->
+                            <div class="flex lg:ml-6">
+                                <button @click="showSearch = !showSearch" class="p-2 text-gray-400 hover:text-gray-500">
+                                    <span class="sr-only">Search</span>
+                                    <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
+                                </button>
+                            </div>
+
+                            <!-- Cart -->
+                            <div v-if="session.isLoggedIn">
+                                <div class="ml-4 flow-root lg:ml-6">
+                                    <button @click="openCart" class="group -m-2 flex items-center p-2">
+                                        <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true" />
+                                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                        <span class="sr-only">items in cart, view bag</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
                             <div v-if="!session.isLoggedIn">
                                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     <button @click="openLoginComponent" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</button>
@@ -114,30 +134,10 @@
                                         },
                                     ]"
                                     >
-                                    <Avatar shape="circle" :image="userInfo.image" size="xl" :label="userInfo.full_name" style="cursor: pointer;"/>
+                                    <Avatar class="ml-2" shape="circle" :image="userInfo.image" size="xl" :label="userInfo.full_name" style="cursor: pointer;"/>
                                 </Dropdown>
                             </div>
 
-                            <!-- TODO: Make it as a input text in the navebar itself -->
-                            <!-- Search -->
-                            <div class="flex lg:ml-6">
-                                <button @click="showSearch = !showSearch" class="p-2 text-gray-400 hover:text-gray-500">
-                                    <span class="sr-only">Search</span>
-                                    <MagnifyingGlassIcon class="h-6 w-6" aria-hidden="true" />
-                                </button>
-                            </div>
-
-                            <!-- Cart -->
-                            <div v-if="session.isLoggedIn">
-                                <div class="ml-4 flow-root lg:ml-6">
-                                    <button @click="openCart" class="group -m-2 flex items-center p-2">
-                                        <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                            aria-hidden="true" />
-                                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                        <span class="sr-only">items in cart, view bag</span>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
