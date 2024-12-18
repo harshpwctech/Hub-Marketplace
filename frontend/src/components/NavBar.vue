@@ -85,7 +85,7 @@
                         </PopoverGroup> -->
 
                         <div class="ml-auto flex items-center">
-                            <div v-if="!session.isLoggedIn">
+                            <div v-if="session.isLoggedIn">
                                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     <button @click="openLoginComponent" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</button>
                                     <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
@@ -106,7 +106,7 @@
                                         },
                                         {
                                             label: 'My Profile',
-                                            onClick: () => {},
+                                            onClick: () => navigateToProfile(),
                                         },
                                         {
                                             label: 'Logout',
@@ -458,7 +458,8 @@ const session = sessionStore();
 const { logout } = sessionStore();
 const userInfo = ref({
     image: '',
-    full_name: ''
+    full_name: '',
+    user_id: ''
 })
 const closeBanner = () => {
   showBanner.value = false;
@@ -472,6 +473,7 @@ onMounted(() => {
     let cookies = new URLSearchParams(document.cookie.split('; ').join('&'))
     userInfo.value.image = cookies.get("user_image")
     userInfo.value.full_name = cookies.get("full_name")
+    userInfo.value.user_id = cookies.get("user_id")
     console.log("User logged in:", cookies.get("user_id"))
     // TODO: fetch the cart values and set it in the internal services cart items
   }
@@ -490,6 +492,10 @@ const openLoginComponent = () => {
 const openRegisterComponent = () => {
     const currentUrl = window.location.pathname + window.location.search;
     window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}#signup`;
+};
+
+const navigateToProfile = () => {
+    window.location.href = `/update-profile/${userInfo.value.user_id}`;
 };
 
 function navigateToProductList1(categoryName) {

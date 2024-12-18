@@ -1,3 +1,4 @@
+<!-- Not used -->
 <template>
     <Dialog v-model="eventBus.loginOpen" :options="{ size: 'md' }" :disableOutsideClickToClose="true"
         :initialFocus="emailInputRef" @close="closeDialog()">
