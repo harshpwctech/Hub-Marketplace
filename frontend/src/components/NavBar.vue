@@ -85,7 +85,7 @@
                         </PopoverGroup> -->
 
                         <div class="ml-auto flex items-center">
-                            <div v-if="session.isLoggedIn">
+                            <div v-if="!session.isLoggedIn">
                                 <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                                     <button @click="openLoginComponent" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</button>
                                     <span class="h-6 w-px bg-gray-200" aria-hidden="true" />
