@@ -134,7 +134,7 @@
                                         },
                                     ]"
                                     >
-                                    <Avatar class="ml-2" shape="circle" :image="userInfo.image" size="xl" :label="userInfo.full_name" style="cursor: pointer;"/>
+                                    <Avatar class="ml-4 flow-root lg:ml-6" shape="circle" :image="userInfo.image" size="xl" :label="userInfo.full_name" style="cursor: pointer;"/>
                                 </Dropdown>
                             </div>
 
