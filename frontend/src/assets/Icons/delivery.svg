@@ -4,39 +4,39 @@
 </mask>
 <g mask="url(#mask0)">
 <g opacity="0.05" filter="url(#filter0_f)">
-<circle cx="56" cy="46" r="8" stroke="#61D3A0" stroke-width="2"/>
+<circle cx="56" cy="46" r="8" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter1_f)">
-<circle cx="56" cy="46" r="16" stroke="#61D3A0" stroke-width="2"/>
+<circle cx="56" cy="46" r="16" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter2_f)">
-<path d="M66 67.8246C68.5254 66.6678 70.8913 65.0498 72.9706 62.9705C82.3431 53.5979 82.3431 38.402 72.9706 29.0294C63.598 19.6568 48.402 19.6568 39.0294 29.0294C29.6569 38.402 29.6569 53.5979 39.0294 62.9705C41.1087 65.0498 43.4746 66.6678 46 67.8246" stroke="#61D3A0" stroke-width="2"/>
+<path d="M66 67.8246C68.5254 66.6678 70.8913 65.0498 72.9706 62.9705C82.3431 53.5979 82.3431 38.402 72.9706 29.0294C63.598 19.6568 48.402 19.6568 39.0294 29.0294C29.6569 38.402 29.6569 53.5979 39.0294 62.9705C41.1087 65.0498 43.4746 66.6678 46 67.8246" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter3_f)">
-<path d="M46 76.4065C33.2243 72.2073 24 60.1809 24 46C24 28.3269 38.3269 14 56 14C73.6731 14 88 28.3269 88 46C88 60.1809 78.7757 72.2073 66 76.4065" stroke="#61D3A0" stroke-width="2"/>
+<path d="M46 76.4065C33.2243 72.2073 24 60.1809 24 46C24 28.3269 38.3269 14 56 14C73.6731 14 88 28.3269 88 46C88 60.1809 78.7757 72.2073 66 76.4065" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter4_f)">
-<path d="M66 84.7398C83.2523 80.2994 96 64.6384 96 46C96 23.9086 78.0914 6 56 6C33.9086 6 16 23.9086 16 46C16 64.6384 28.7477 80.2994 46 84.7398" stroke="#61D3A0" stroke-width="2"/>
+<path d="M66 84.7398C83.2523 80.2994 96 64.6384 96 46C96 23.9086 78.0914 6 56 6C33.9086 6 16 23.9086 16 46C16 64.6384 28.7477 80.2994 46 84.7398" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter5_f)">
-<path d="M46 92.9568C24.2901 88.3562 8 69.0805 8 46C8 19.4903 29.4903 -2 56 -2C82.5097 -2 104 19.4903 104 46C104 69.0805 87.7099 88.3562 66 92.9568" stroke="#61D3A0" stroke-width="2"/>
+<path d="M46 92.9568C24.2901 88.3562 8 69.0805 8 46C8 19.4903 29.4903 -2 56 -2C82.5097 -2 104 19.4903 104 46C104 69.0805 87.7099 88.3562 66 92.9568" stroke="#171717" stroke-width="2"/>
 </g>
 <g opacity="0.05" filter="url(#filter6_f)">
-<circle cx="56" cy="46" r="56" stroke="#61D3A0" stroke-width="2"/>
+<circle cx="56" cy="46" r="56" stroke="#171717" stroke-width="2"/>
 </g>
 <g filter="url(#filter7_dd)">
 <path d="M116 4L116 92L92 92L92 4L116 4Z" fill="white"/>
-<path d="M116 3.5L116.5 3.5L116.5 4L116.5 92L116.5 92.5L116 92.5L92 92.5L91.5 92.5L91.5 92L91.5 4L91.5 3.5L92 3.5L116 3.5Z" stroke="#61D3A0" stroke-opacity="0.08"/>
+<path d="M116 3.5L116.5 3.5L116.5 4L116.5 92L116.5 92.5L116 92.5L92 92.5L91.5 92.5L91.5 92L91.5 4L91.5 3.5L92 3.5L116 3.5Z" stroke="#171717" stroke-opacity="0.08"/>
 </g>
 <g filter="url(#filter8_dd)">
 <path d="M-4 4L-4 92L20 92L20 4L-4 4Z" fill="white"/>
-<path d="M-4 3.5L-4.5 3.5L-4.5 4L-4.5 92L-4.5 92.5L-4 92.5L20 92.5L20.5 92.5L20.5 92L20.5 4L20.5 3.5L20 3.5L-4 3.5Z" stroke="#61D3A0" stroke-opacity="0.08"/>
+<path d="M-4 3.5L-4.5 3.5L-4.5 4L-4.5 92L-4.5 92.5L-4 92.5L20 92.5L20.5 92.5L20.5 92L20.5 4L20.5 3.5L20 3.5L-4 3.5Z" stroke="#171717" stroke-opacity="0.08"/>
 </g>
 <g opacity="0.3" filter="url(#filter9_f)">
-<path d="M52 61.5V97" stroke="#61D3A0" stroke-width="2" stroke-linecap="round"/>
+<path d="M52 61.5V97" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
 </g>
 <g opacity="0.3" filter="url(#filter10_f)">
-<path d="M60 61.5V97" stroke="#61D3A0" stroke-width="2" stroke-linecap="round"/>
+<path d="M60 61.5V97" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
 </g>
 </g>
 <g filter="url(#filter11_dd)">
@@ -44,7 +44,7 @@
 <circle cx="56" cy="46" r="16.5" stroke="#121826" stroke-opacity="0.08"/>
 </g>
 <circle cx="56" cy="46" r="13.5" stroke="#E5E7EB"/>
-<path d="M54.6258 39.8937L49.4974 51.6157C48.9644 52.834 50.1629 54.092 51.4056 53.6186L55.822 51.9362C55.9366 51.8925 56.0634 51.8925 56.178 51.9362L60.5944 53.6186C61.8371 54.092 63.0356 52.834 62.5026 51.6157L57.3742 39.8937C56.85 38.6953 55.15 38.6953 54.6258 39.8937Z" fill="#61D3A0" stroke="#61D3A0"/>
+<path d="M54.6258 39.8937L49.4974 51.6157C48.9644 52.834 50.1629 54.092 51.4056 53.6186L55.822 51.9362C55.9366 51.8925 56.0634 51.8925 56.178 51.9362L60.5944 53.6186C61.8371 54.092 63.0356 52.834 62.5026 51.6157L57.3742 39.8937C56.85 38.6953 55.15 38.6953 54.6258 39.8937Z" fill="#171717" stroke="#171717"/>
 <defs>
 <filter id="filter0_f" x="46.5" y="36.5" width="19" height="19" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
@@ -134,8 +134,8 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow" result="shape"/>
 </filter>
 <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(56 48) rotate(90) scale(69 72.9204)">
-<stop offset="0.231884" stop-color="#61D3A0"/>
-<stop offset="0.724638" stop-color="#61D3A0" stop-opacity="0"/>
+<stop offset="0.231884" stop-color="#171717"/>
+<stop offset="0.724638" stop-color="#171717" stop-opacity="0"/>
 </radialGradient>
 </defs>
 </svg>
