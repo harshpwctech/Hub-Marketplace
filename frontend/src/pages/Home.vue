@@ -2,11 +2,11 @@
   <NavBar />
   <div v-if="!isLoading">
     <div v-for="(items, category) in productList" :key="category">
-      <div class="mx-auto max-w-7xl overflow-hidden py-8 sm:px-6 lg:px-8">
-        <div class="md:flex md:items-center md:justify-between">
+      <div class="mx-auto max-w-7xl overflow-hidden py-8 px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
           <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ category }}</h2>
           <button @click="navigateToProductList(category)"
-            class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block">
+            class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
             View All
             <span aria-hidden="true"> &rarr;</span>
           </button>

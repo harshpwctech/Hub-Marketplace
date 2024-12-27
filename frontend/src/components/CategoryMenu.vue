@@ -61,9 +61,6 @@
                                 <div class="flow-root">
                                     <button @click="openLoginComponent" class="-m-2 block p-2 font-normal text-gray-900">Sign in</button>
                                 </div>
-                                <div class="flow-root">
-                                    <button @click="openRegisterComponent" class="-m-2 block p-2 font-normal text-gray-900">Create account</button>
-                                </div>
                             </div>
                         </div>
                     </DialogPanel>
@@ -99,10 +96,6 @@ const openLoginComponent = () => {
     const currentUrl = window.location.pathname + window.location.search;
     window.location.href = `/login?redirect-to=${encodeURIComponent(currentUrl)}`;
     return;
-};
-const openRegisterComponent = () => {
-    eventBus.menuOpen = false;
-    eventBus.registerOpen = true;
 };
 
 function navigateToProductList(categoryName, subCategoryName = null) {

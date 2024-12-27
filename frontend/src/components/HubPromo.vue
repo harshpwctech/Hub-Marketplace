@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-50">
-        <div class="mx-auto max-w-7xl py-4 sm:px-2 lg:py-12 lg:px-4">
+        <div class="mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
             <div class="max-w-3xl">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-900">We connect buyers with right sellers</h2>
             </div>
