@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-10 13:56:39.915639",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "seller",
+  "seller_lead_reference",
+  "lead_creation",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "seller",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Seller",
+   "options": "Hub Seller"
+  },
+  {
+   "fieldname": "seller_lead_reference",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Seller Lead Reference"
+  },
+  {
+   "fieldname": "lead_creation",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Lead Creation"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "New\nContacted\nQualified\nConverted\nLost"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-10 13:57:07.816196",
+ "modified_by": "Administrator",
+ "module": "Hub Marketplace",
+ "name": "Hub Seller Lead",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

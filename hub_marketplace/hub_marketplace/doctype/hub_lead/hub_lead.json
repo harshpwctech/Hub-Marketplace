@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "HUB-LEAD-.#####",
+ "creation": "2024-12-10 13:58:11.494984",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "buyer",
+  "item",
+  "column_break_2zhzz",
+  "default_seller",
+  "contact_sellers",
+  "section_break_3edzd",
+  "hub_sellers",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "buyer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Buyer",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Hub Seller Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hub_sellers",
+   "fieldtype": "Table",
+   "label": "Hub Sellers",
+   "options": "Hub Seller Lead"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "default_seller",
+   "fieldtype": "Data",
+   "label": "Default Seller",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2zhzz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "contact_sellers",
+   "fieldtype": "Check",
+   "label": "Contact Other Sellers"
+  },
+  {
+   "fieldname": "section_break_3edzd",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-10 14:11:55.347109",
+ "modified_by": "Administrator",
+ "module": "Hub Marketplace",
+ "name": "Hub Lead",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Hub Buyer",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

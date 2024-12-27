@@ -1,6 +1,7 @@
 import frappe
 from hub_marketplace.api.master_services import masterServices
 from hub_marketplace.api.seller_services import sellerServices
+from hub_marketplace.api.buyer_services import buyerServices
 
 
 @frappe.whitelist(allow_guest=True)
@@ -12,10 +13,13 @@ def handle_hub_marketplace_request():
     try:
         master_services = masterServices(data)
         seller_services = sellerServices(data)
+        buyer_services = buyerServices(data)
         if hasattr(master_services, request):
             return getattr(master_services, request)()
         elif hasattr(seller_services, request):
             return getattr(seller_services, request)()
+        elif hasattr(buyer_services, request):
+            return getattr(buyer_services, request)()
         else:
             frappe.throw("Invalid Request")
     except Exception as e:

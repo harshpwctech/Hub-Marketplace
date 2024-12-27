@@ -3,7 +3,7 @@ from frappe.commands.site import add_new_user
 from frappe.core.doctype.user.user import generate_keys
 
 
-def register_user(user_data):
+def register_seller(user_data):
     frappe.session.user = "Administrator"
     user_info = user_data.get("user")
     user_email = user_info["email"]
@@ -94,8 +94,8 @@ class sellerServices:
     def __init__(self, data):
         self.data = frappe._dict(data)
     
-    def register_user(self):
-        return register_user(self.data)
+    def register_seller(self):
+        return register_seller(self.data)
     
     def update_catalog(self):
         return update_catalog(catalog=self.data)
