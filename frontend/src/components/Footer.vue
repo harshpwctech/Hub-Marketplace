@@ -7,14 +7,6 @@
                     <div class="grid grid-cols-2 gap-8 xl:col-span-2">
                         <div class="space-y-8 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                             <div>
-                                <h3 class="text-sm font-medium text-gray-900">Shop</h3>
-                                <ul role="list" class="mt-6 space-y-6">
-                                    <li v-for="item in footerNavigation.shop" :key="item.name" class="text-sm">
-                                        <a :href="item.href" class="text-gray-500 hover:text-gray-600">{{ item.name }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
                                 <h3 class="text-sm font-medium text-gray-900">Company</h3>
                                 <ul role="list" class="mt-6 space-y-6">
                                     <li v-for="item in footerNavigation.company" :key="item.name" class="text-sm">
@@ -22,12 +14,20 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-900">Seller Central</h3>
+                                <ul role="list" class="mt-6 space-y-6">
+                                    <li v-for="item in footerNavigation.seller" :key="item.name" class="text-sm">
+                                        <a :href="item.href" class="text-gray-500 hover:text-gray-600">{{ item.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="space-y-16 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                             <div>
-                                <h3 class="text-sm font-medium text-gray-900">Account</h3>
+                                <h3 class="text-sm font-medium text-gray-900">Buyer Central</h3>
                                 <ul role="list" class="mt-6 space-y-6">
-                                    <li v-for="item in footerNavigation.account" :key="item.name" class="text-sm">
+                                    <li v-for="item in footerNavigation.buyer" :key="item.name" class="text-sm">
                                         <a :href="item.href" class="text-gray-500 hover:text-gray-600">{{ item.name }}</a>
                                     </li>
                                 </ul>
@@ -68,22 +68,17 @@
 
 <script setup>
 const footerNavigation = {
-  shop: [
-    { name: 'Bags', href: '#' },
-    { name: 'Tees', href: '#' },
-    { name: 'Objects', href: '#' },
-    { name: 'Home Goods', href: '#' },
-    { name: 'Accessories', href: '#' },
-  ],
   company: [
     { name: 'Who we are', href: '#' },
-    { name: 'Sustainability', href: '#' },
-    { name: 'Press', href: '#' },
     { name: 'Careers', href: '#' },
     { name: 'Terms & Conditions', href: '#' },
     { name: 'Privacy', href: '#' },
   ],
-  account: [
+  seller: [
+    { name: 'Seller Categories', href: 'seller_categories' },
+    { name: 'Sell on Hub Marketplace', href: '#' },
+  ],
+  buyer: [
     { name: 'Manage Account', href: '#' },
     { name: 'Returns & Exchanges', href: '#' },
     { name: 'Redeem a Gift Card', href: '#' },

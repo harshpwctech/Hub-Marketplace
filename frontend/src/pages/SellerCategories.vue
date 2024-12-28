@@ -77,7 +77,7 @@ const fetchCategories = async () => {
                 .sort((a, b) => a.category.localeCompare(b.category))
                 .map((category) => ({
                     showIndentationGuides: true,
-                    rowHeight: '25px',
+                    rowHeight: '35px',
                     indentWidth: '25px',
                     node: {
                         name: category.name,

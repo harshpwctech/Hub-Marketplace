@@ -119,15 +119,24 @@
                             <button @click="getQuote" type="button"
                                 class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                                 :style="{ backgroundColor: 'var(--theme-color)' }">Contact Seller</button>
-                            <button @click="toggleWishlist" type="button"
-                                class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
-                                <component :is="inWishList ? FilledHeartIcon : HeartIcon" :class="[
-                                        'h-6 w-6 flex-shrink-0',
-                                        inWishList ? 'text-red-500' : 'text-gray-400 hover:text-gray-500'
-                                    ]" aria-hidden="true" />
-                                <span class="sr-only">{{ inWishList ? 'Remove from wishlist' : 'Add to wishlist'
-                                    }}</span>
-                            </button>
+                                <Popover trigger="hover" hoverDelay="0.5">
+                                    <template #target>
+                                        <button @click="toggleWishlist" type="button"
+                                            class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
+                                            <component :is="inWishList ? FilledHeartIcon : HeartIcon" :class="[
+                                                    'h-6 w-6 flex-shrink-0',
+                                                    inWishList ? 'text-red-500' : 'text-gray-400 hover:text-gray-500'
+                                                ]" aria-hidden="true" />
+                                            <span class="sr-only">{{ inWishList ? 'Remove from wishlist' : 'Add to wishlist'
+                                                }}</span>
+                                        </button>
+                                    </template>
+                                    <template #body-main>
+                                        <div class="p-2 max-w-48 text-xs text-gray-600">
+                                        Your interest for the product shall be shared with this seller. The seller may contact you.
+                                        </div>
+                                    </template>
+                                </Popover>
                         </div>
                     </div>
 
@@ -231,7 +240,7 @@ import { HeartIcon as FilledHeartIcon} from '@heroicons/vue/24/solid'
 import { internalServices } from '../services/internalServices'
 import { useRouter } from 'vue-router';
 import { sessionStore } from '@/services/session'
-import { Dialog, FormControl } from 'frappe-ui';
+import { Dialog, FormControl, Popover } from 'frappe-ui';
 
 const props = defineProps({
     productName: {
