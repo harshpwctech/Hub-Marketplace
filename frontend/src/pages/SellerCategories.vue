@@ -1,63 +1,109 @@
 <template #node="{ node, hasChildren, isCollapsed, toggleCollapsed }">
     <NavBar />
-    <div class="mx-auto max-w-7xl overflow-hidden px-4 pt-8 sm:px-6 lg:px-8">
-        <Tree :options="{
-            showIndentationGuides: state.showIndentationGuides,
-            rowHeight: state.rowHeight,
-            indentWidth: state.indentWidth,
-        }" nodeKey="name" :node="state.node" />
+    <div class="mx-auto max-w-7xl overflow-hidden px-4 pt-8 sm:px-6 lg:px-4">
+        <div class="mb-8">
+            <p class="text-xl text-center mb-2 text-gray">Categories available for sellers on hubmarket.place</p>
+            <p class="text-sm text-center text-gray-600">New categories shall be added periodically as per the demand from the sellers.</p>
+        </div>
+        <!-- <div class="px-4 pb-8 sm:px-6 lg:px-4">
+        <TextInput
+            :type="'search'"
+            :ref_for="true"
+            size="sm"
+            variant="subtle"
+            placeholder="Search categories..."
+            :disabled="false"
+            v-model="searchQuery"
+        />
+        </div> -->
+        <div v-for="(categoryNode, index) in filteredCategories" :key="index" class="mb-2 px-4 sm:px-4 lg:px-8">
+            <Tree :options="{
+                showIndentationGuides: categoryNode.showIndentationGuides,
+                rowHeight: categoryNode.rowHeight,
+                indentWidth: categoryNode.indentWidth,
+            }" nodeKey="name" :node="categoryNode.node" />
+
+        </div>
     </div>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { Tree } from 'frappe-ui'
+import { reactive, ref, onMounted, computed } from 'vue'
+import { Tree, TextInput } from 'frappe-ui'
+import { internalServices } from '../services/internalServices'
 import NavBar from '../components/NavBar.vue';
 
-const isCollapsed = ref(false)
-const state = reactive({
-    showIndentationGuides: true,
-    rowHeight: '25px',
-    indentWidth: '15px',
-    node: {
-        name: 'categories',
-        label: 'Categories',
-        isCollapsed: false,
-        children: [
-            {
-                name: 'downloads',
-                label: 'Downloads',
-                children: [
-                    {
-                        name: 'download.zip',
-                        label: 'download.zip',
-                        children: [
-                            {
-                                name: 'image.png',
-                                label: 'image.png',
-                                children: [],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                name: 'documents',
-                label: 'Documents',
-                children: [
-                    {
-                        name: 'somefile.txt',
-                        label: 'somefile.txt',
-                        children: [],
-                    },
-                    {
-                        name: 'somefile.pdf',
-                        label: 'somefile.pdf',
-                        children: [],
-                    },
-                ],
-            },
-        ],
-    },
-})
+const isCollapsed = ref(false);
+const searchQuery = ref('');
+const state = reactive([]);
+const useInternalServices = internalServices();
+
+const filteredCategories = computed(() => {
+    if (!searchQuery.value) {
+        return state; // If no search query, return all categories
+    }
+    const query = searchQuery.value.toLowerCase();
+
+    // Recursively filter categories and their children
+    const filterTree = (nodes) =>
+        nodes
+            .map((categoryNode) => {
+                const { node } = categoryNode;
+                const children = node.children.length > 0 ? filterTree(node.children) : [];
+                const matchesNode =
+                    node.label.toLowerCase().includes(query) ||
+                    children.length > 0; // Include if label matches or has matching children
+
+                return matchesNode
+                    ? {
+                          ...categoryNode,
+                          node: {
+                              ...node,
+                              children,
+                          },
+                      }
+                    : null;
+            })
+            .filter(Boolean); // Remove null entries
+
+    return filterTree(state);
+});
+
+const fetchCategories = async () => {
+    try {
+        let categories = await useInternalServices.getSellerCategories.fetch();
+        const transformArrayToNodes = (dataArray) => {
+            return dataArray
+                .sort((a, b) => a.category.localeCompare(b.category))
+                .map((category) => ({
+                    showIndentationGuides: true,
+                    rowHeight: '25px',
+                    indentWidth: '25px',
+                    node: {
+                        name: category.name,
+                        label: category.category,
+                        isCollapsed: false,
+                        children: category.sub_category
+                            ? category.sub_category
+                                .sort((a, b) => a.category.localeCompare(b.category))    
+                                .map((subCategory) => ({
+                                    name: subCategory.name,
+                                    label: subCategory.category,
+                                    isCollapsed: false,
+                                    children: [],
+                                }))
+                        : [],
+                }
+            }));
+        };
+        state.push(...transformArrayToNodes(categories));
+
+    }
+    catch (error) {
+        console.error("Failed to fetch categories:", error);
+    }
+};
+onMounted(() => {
+    fetchCategories()
+});
 </script>

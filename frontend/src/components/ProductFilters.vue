@@ -179,6 +179,7 @@ import {
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue'
+import { useRouter } from 'vue-router'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
 import ProductsGrid from '../components/ProductsGrid.vue';
@@ -195,6 +196,7 @@ const props = defineProps({
         required: false
     }
 });
+const router = useRouter()
 const useInternalServices = internalServices();
 const hubCategories = useInternalServices.hubCategories;
 const isLoading = ref(true)
@@ -227,13 +229,17 @@ const fetchItems = async () => {
   }
 };
 
-async function getSubCategoryItems(subCategory){
-    isLoading.value = true
-    fetchItemsFilters.value = {
-        ...fetchItemsFilters.value,
-        sub_category: subCategory
-    };
-    await fetchItems()
+function getSubCategoryItems(subCategory){
+    const query = {};
+    if (subCategory) {
+        query.subCategoryName = subCategory; // Add subCategoryName to query only if provided
+    }
+    router.push({ name: 'ProductList', params: props.categoryName, query })
+    .catch((err) => {
+        if (err.name !== 'NavigationDuplicated') {
+            console.error(err);
+        }
+    });
     mobileFiltersOpen.value = false
 };
 
