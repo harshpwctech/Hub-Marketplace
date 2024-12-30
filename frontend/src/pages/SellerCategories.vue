@@ -16,13 +16,19 @@
             v-model="searchQuery"
         />
         </div> -->
-        <div v-for="(categoryNode, index) in filteredCategories" :key="index" class="mb-2 px-4 sm:px-4 lg:px-8">
-            <Tree :options="{
-                showIndentationGuides: categoryNode.showIndentationGuides,
-                rowHeight: categoryNode.rowHeight,
-                indentWidth: categoryNode.indentWidth,
-            }" nodeKey="name" :node="categoryNode.node" />
+        <div v-if="isLoading" class="space-y-4 px-4">
+            <!-- Skeleton Loader -->
+            <div v-for="i in 10" :key="i" class="h-8 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        <div v-else>
+            <div v-for="(categoryNode, index) in filteredCategories" :key="index" class="mb-2 px-4 sm:px-4 lg:px-8">
+                <Tree :options="{
+                    showIndentationGuides: categoryNode.showIndentationGuides,
+                    rowHeight: categoryNode.rowHeight,
+                    indentWidth: categoryNode.indentWidth,
+                }" nodeKey="name" :node="categoryNode.node" />
 
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +40,7 @@ import { internalServices } from '../services/internalServices'
 import NavBar from '../components/NavBar.vue';
 
 const isCollapsed = ref(false);
+const isLoading = ref(true);
 const searchQuery = ref('');
 const state = reactive([]);
 const useInternalServices = internalServices();
@@ -101,6 +108,8 @@ const fetchCategories = async () => {
     }
     catch (error) {
         console.error("Failed to fetch categories:", error);
+    } finally {
+        isLoading.value = false;
     }
 };
 onMounted(() => {
