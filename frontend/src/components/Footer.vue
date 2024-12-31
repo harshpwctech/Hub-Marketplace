@@ -75,7 +75,7 @@ const footerNavigation = {
     { name: 'Privacy', href: '#' },
   ],
   seller: [
-    { name: 'Seller Categories', href: 'seller_categories' },
+    { name: 'Seller Categories', href: '/seller_categories' },
     { name: 'Sell on Hub Marketplace', href: '#' },
   ],
   buyer: [

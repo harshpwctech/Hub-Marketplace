@@ -202,12 +202,16 @@
             <h3 class="text-lg font-medium text-gray-900">Contact sellers and get the best deal</h3>
         </template>
         <template #body-content>
-            <div class="mb-8">
-                <FormControl v-model="userMobile" :type="'text'" label="Mobile Number" :rating_from="5" size="sm"
-                    :disabled="true" />
+            <div class="mb-6">
+                <FormControl v-model="userMobile" :required="true" :type="'text'" label="Mobile Number" placeholder="+919999888877"
+                    size="sm" />
+            </div>
+            <div class="mb-6">
+                <FormControl v-model="userOrganisation" :required="true" :type="'text'" label="Organisation" size="sm" placeholder="ABC Industries Private Limited"
+                    class="w-full" />
             </div>
             <div class="mb-4">
-                <FormControl v-model="userRemarks" :type="'textarea'" size="md" placeholder="Any further information.."
+                <FormControl v-model="userRemarks" :type="'textarea'" size="md" label="Remarks" placeholder="Any further information.."
                     class="w-full" :rows="6" />
             </div>
             <FormControl v-model="contactSellers" :type="'checkbox'" size="sm" placeholder="Contact Sellers"
@@ -256,6 +260,7 @@ const session = sessionStore();
 const inWishList = ref(false)
 const isDialogVisible = ref(false)
 const userMobile = ref('');
+const userOrganisation = ref('');
 const userRemarks = ref('');
 const contactSellers = ref(true);
 
@@ -384,12 +389,17 @@ const getQuote = () => {
 };
 const submitGetQuote = async () => {
     try {
+        if (!userMobile.value && !userOrganisation.value) {
+            return alert('Please fill the mandatory details.');
+        }
         const { user } = sessionStore();
         let data = {
             "doctype": "Hub Lead",
             "item": props.productName,
             "buyer": user,
             "default_seller": seller.value.name,
+            "company_name": userOrganisation.value,
+            "contact_number": userMobile.value,
             "remarks": userRemarks.value,
             "contact_sellers": contactSellers.value
         }

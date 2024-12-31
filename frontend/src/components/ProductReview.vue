@@ -47,7 +47,7 @@
               </div>
               <p class="ml-2 text-sm text-gray-900">Based on 0 ratings</p>
             </div>
-            <p class="mt-3 text-md text-gray-600">No reviews available for this product yet.</p>
+            <!-- <p class="mt-3 text-md text-gray-600">No ratings available for this product yet.</p> -->
           </div>
         </div>
 
@@ -80,7 +80,7 @@
           </div>
         </div>
         <div v-else>
-          <p class="text-md text-gray-600">No recent review written by customers.</p>
+          <p class="text-md text-gray-600">No reviews available for this product yet.</p>
         </div>
 
       </div>
