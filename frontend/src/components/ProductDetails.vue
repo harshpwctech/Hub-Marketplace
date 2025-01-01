@@ -119,7 +119,7 @@
                             <button @click="getQuote" type="button"
                                 class="flex max-w-xs flex-1 items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 sm:w-full"
                                 :style="{ backgroundColor: 'var(--theme-color)' }">Contact Seller</button>
-                                <Popover trigger="hover" hoverDelay="0.5">
+                                <Popover trigger="hover" :hoverDelay="0.5">
                                     <template #target>
                                         <button @click="toggleWishlist" type="button"
                                             class="ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
@@ -211,7 +211,7 @@
                     class="w-full" />
             </div>
             <div class="mb-4">
-                <FormControl v-model="userRemarks" :type="'textarea'" size="md" label="Remarks" placeholder="Any further information.."
+                <FormControl v-model="userRemarks" :type="'textarea'" size="md" label="Remarks" placeholder="Any further information like qty required, location, custom requirements, etc..."
                     class="w-full" :rows="6" />
             </div>
             <FormControl v-model="contactSellers" :type="'checkbox'" size="sm" placeholder="Contact Sellers"
